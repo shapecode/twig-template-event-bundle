@@ -1,0 +1,32 @@
+{
+    "name": "shapecode/twig-template-event",
+    "description": "Possibility to add code in a twig template dynamically",
+    "keywords": [
+        "shapecode",
+        "twig",
+        "template",
+        "event",
+        "dispatcher"
+    ],
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "homepage": "http://shapecode.de",
+    "authors": [
+        {
+            "name": "Nikita Loges",
+            "homepage": "http://nikita-loges.de",
+            "email": "develop@nikita-loges.de"
+        }
+    ],
+    "require": {
+        "php": ">=5.3",
+        "symfony/event-dispatcher": "~2.6",
+        "twig/twig": "~1.16"
+    },
+    "autoload": {
+        "psr-0": {
+            "Shapecode\\Bundle\\TwigTemplateEventBundle": ""
+        }
+    },
+    "target-dir": "Shapecode/Bundle/TwigTemplateEventBundle"
+}

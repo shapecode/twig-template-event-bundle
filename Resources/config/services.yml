@@ -1,3 +1,17 @@
 parameters:
+    shapecode.twig_template_event.twig_extension.event.class: Shapecode\Bundle\TwigTemplateEventBundle\Twig\EventExtension
+    shapecode.twig_template_event.event.test.class: Shapecode\Bundle\TwigTemplateEventBundle\EventListener\TestTwigEventListener
 
 services:
+    # twig extensions
+    shapecode.twig_template_event.twig_extension.event:
+        class: %shapecode.twig_template_event.twig_extension.event.class%
+        arguments: [ @event_dispatcher ]
+        tags:
+            - { name: twig.extension }
+
+    # twig events
+    shapecode.twig_template_event.event.test:
+        class: %shapecode.twig_template_event.event.test.class%
+        tags:
+            - { name: kernel.event_listener, event: twig.template.event, method: onTemplateEvent }

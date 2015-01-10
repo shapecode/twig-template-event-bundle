@@ -11,7 +11,6 @@ use Symfony\Component\DependencyInjection\Loader;
  * Class ShapecodeTwigTemplateEventExtension
  * @package Shapecode\Bundle\TwigTemplateEventBundle\DependencyInjection
  * @author Nikita Loges
- * @date ${DATE}
  */
 class ShapecodeTwigTemplateEventExtension extends Extension
 {
