@@ -1,12 +1,13 @@
 {
-    "name": "shapecode/twig-template-event",
+    "name": "shapecode/twig-template-event-bundle",
     "description": "Possibility to add code in a twig template dynamically",
     "keywords": [
         "shapecode",
         "twig",
         "template",
         "event",
-        "dispatcher"
+        "dispatcher",
+        "bundle"
     ],
     "type": "symfony-bundle",
     "license": "MIT",
