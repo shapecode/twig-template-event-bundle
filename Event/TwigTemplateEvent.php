@@ -2,6 +2,8 @@
 namespace Shapecode\Bundle\TwigTemplateEventBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Class TwigTemplateEvent
@@ -18,17 +20,31 @@ class TwigTemplateEvent extends Event
     public $eventName;
 
     /**
+     * @var RequestStack
+     */
+    public $request;
+
+    /**
      * @var array
      */
     public $codes;
 
     /**
      * @param $eventName
+     * @param RequestStack $request
      */
-    public function __construct($eventName)
+    public function __construct($eventName, RequestStack $request)
     {
         $this->eventName = $eventName;
         $this->codes = array();
+    }
+
+    /**
+     * @return Request
+     */
+    public function getRequest()
+    {
+        return $this->request->getCurrentRequest();
     }
 
     /**
