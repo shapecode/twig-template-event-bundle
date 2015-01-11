@@ -6,6 +6,7 @@
         "twig",
         "template",
         "event",
+        "event listener",
         "dispatcher",
         "bundle"
     ],
