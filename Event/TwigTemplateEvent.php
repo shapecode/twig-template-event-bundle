@@ -17,17 +17,17 @@ class TwigTemplateEvent extends Event
     /**
      * @var string
      */
-    public $eventName;
+    protected $eventName;
 
     /**
      * @var RequestStack
      */
-    public $request;
+    protected $request;
 
     /**
      * @var array
      */
-    public $codes;
+    protected $codes;
 
     /**
      * @param $eventName
