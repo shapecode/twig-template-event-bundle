@@ -3,9 +3,7 @@ namespace Shapecode\Bundle\TwigTemplateEventBundle\Twig;
 
 use Shapecode\Bundle\TwigTemplateEventBundle\Event\TwigEvents;
 use Shapecode\Bundle\TwigTemplateEventBundle\Event\TwigTemplateEvent;
-use Shapecode\Bundle\TwigTemplateEventBundle\Twig\Tag\TemplateEventTokenParser;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
@@ -40,16 +38,6 @@ class EventExtension extends \Twig_Extension
         $this->dispatcher = $dispatcher;
         $this->twig = $twig;
         $this->request = $request;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getTokenParsers()
-    {
-        return array(
-            // new TemplateEventTokenParser($this->dispatcher)
-        );
     }
 
     /**
