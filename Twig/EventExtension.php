@@ -1,10 +1,15 @@
 <?php
 namespace Shapecode\Bundle\TwigTemplateEventBundle\Twig;
 
+use Shapecode\Bundle\TwigTemplateEventBundle\Event\Code\TwigEventInclude;
+use Shapecode\Bundle\TwigTemplateEventBundle\Event\Code\TwigEventRender;
+use Shapecode\Bundle\TwigTemplateEventBundle\Event\Code\TwigEventString;
 use Shapecode\Bundle\TwigTemplateEventBundle\Event\TwigEvents;
 use Shapecode\Bundle\TwigTemplateEventBundle\Event\TwigTemplateEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpKernel\Controller\ControllerReference;
+use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
 
 /**
  * Class EventExtension
@@ -15,28 +20,24 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class EventExtension extends \Twig_Extension
 {
 
-    /**
-     * @var EventDispatcherInterface
-     */
+    /** @var FragmentHandler */
+    private $fragment;
+
+    /** @var EventDispatcherInterface */
     protected $dispatcher;
 
-    /**
-     * @var \Twig_Environment
-     */
-    protected $twig;
-
-    /**
-     * @var RequestStack
-     */
+    /** @var RequestStack */
     protected $request;
 
     /**
+     * @param FragmentHandler $fragment
      * @param EventDispatcherInterface $dispatcher
+     * @param RequestStack $request
      */
-    public function __construct(EventDispatcherInterface $dispatcher, \Twig_Environment $twig, RequestStack $request)
+    public function __construct(FragmentHandler $fragment, EventDispatcherInterface $dispatcher, RequestStack $request)
     {
+        $this->fragment = $fragment;
         $this->dispatcher = $dispatcher;
-        $this->twig = $twig;
         $this->request = $request;
     }
 
@@ -46,7 +47,11 @@ class EventExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('event', array($this, 'event'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('event', array($this, 'event'), array(
+                'needs_environment' => true,
+                'needs_context' => true,
+                'is_safe' => array('all')
+            )),
         );
     }
 
@@ -54,17 +59,43 @@ class EventExtension extends \Twig_Extension
      * @param $name
      * @return string
      */
-    public function event($name) {
-        $event = new TwigTemplateEvent($name, $this->request);
+    public function event(\Twig_Environment $env, $context, $name, array $parameters = array())
+    {
+
+        $event = new TwigTemplateEvent($name, $parameters, $this->request);
         $this->dispatcher->dispatch(TwigEvents::TEMPLATE_EVENT, $event);
 
-        $codes = $event->getCodes();
+        return $this->render($env, $context, $event);
+    }
 
+    /**
+     * @param \Twig_Environment $env
+     * @param $context
+     * @param TwigTemplateEvent $event
+     * @return string
+     */
+    protected function render(\Twig_Environment $env, $context, TwigTemplateEvent $event)
+    {
+        $codes = $event->getCodes();
         $compiled = '';
 
         if (count($codes)) {
             foreach ($codes as $code) {
-                $compiled .= $this->twig->render($code);
+
+                if ($code instanceof TwigEventInclude) {
+                    $compiled .= $env->resolveTemplate($code->getTemplate())->render(array_replace_recursive($context, $code->getParameters()));
+                    continue;
+                }
+                if ($code instanceof TwigEventString) {
+                    $compiled .= $env->render($code->getTemplateString(), array_replace_recursive($context, $code->getParameters()));
+                    continue;
+                }
+
+                if ($code instanceof TwigEventRender) {
+                    $reference = new ControllerReference($code->getController(), $code->getAttributes(), $code->getQuery());
+                    $compiled .= $this->fragment->render($reference, $code->getStrategy());
+                    continue;
+                }
             }
         }
 

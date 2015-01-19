@@ -1,6 +1,7 @@
 <?php
 namespace Shapecode\Bundle\TwigTemplateEventBundle\Event;
 
+use Shapecode\Bundle\TwigTemplateEventBundle\Event\Code\TwigEventCodeInterface;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -13,6 +14,11 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 class TwigTemplateEvent extends Event
 {
+
+    /**
+     * @var array
+     */
+    private $parameters;
 
     /**
      * @var string
@@ -31,11 +37,13 @@ class TwigTemplateEvent extends Event
 
     /**
      * @param $eventName
+     * @param array $parameters
      * @param RequestStack $request
      */
-    public function __construct($eventName, RequestStack $request)
+    public function __construct($eventName, array $parameters = array(), RequestStack $request)
     {
         $this->eventName = $eventName;
+        $this->parameters = $parameters;
         $this->codes = array();
     }
 
@@ -56,10 +64,20 @@ class TwigTemplateEvent extends Event
     }
 
     /**
-     * @param string $code
+     * @param TwigEventCodeInterface $code
      */
-    public final function addCode($code)
+    public function addCode(TwigEventCodeInterface $code)
     {
+        usort($this->codes, function ($a, $b) {
+            /** @var TwigEventCodeInterface $a */
+            /** @var TwigEventCodeInterface $b */
+            if ($a->getPriority() == $b->getPriority()) {
+                return 0;
+            }
+
+            return ($a->getPriority() < $b->getPriority()) ? -1 : 1;
+        });
+
         $this->codes[] = $code;
     }
 
