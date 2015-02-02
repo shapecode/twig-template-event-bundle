@@ -5,7 +5,6 @@ namespace Shapecode\Bundle\TwigTemplateEventBundle\Event\Code;
 /**
  * Interface TwigEventCodeInterface
  * @author Nikita Loges
- * @company tenolo GbR
  * @date 19.01.2015
  */
 interface TwigEventCodeInterface

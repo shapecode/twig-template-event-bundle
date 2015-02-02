@@ -6,7 +6,6 @@ namespace Shapecode\Bundle\TwigTemplateEventBundle\Event\Code;
  * Class TwigEventInclude
  * @package Shapecode\Bundle\TwigTemplateEventBundle\Event\Code
  * @author Nikita Loges
- * @company tenolo GbR
  * @date 19.01.2015
  */
 class TwigEventInclude extends TwigEventCode
