@@ -22,7 +22,7 @@
         }
     ],
     "require": {
-        "php": ">=5.3",
+        "php": ">=5.3.9",
         "twig/twig": "~1.16",
         "symfony/event-dispatcher": "~2.6",
         "symfony/http-kernel" : "~2.6",
