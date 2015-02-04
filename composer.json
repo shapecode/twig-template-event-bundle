@@ -25,7 +25,6 @@
         "php": ">=5.3.9",
         "twig/twig": "~1.16",
         "symfony/event-dispatcher": "~2.6",
-        "symfony/http-kernel" : "~2.6",
         "symfony/framework-bundle" : "~2.6",
         "symfony/twig-bridge": "~2.6",
         "symfony/twig-bundle": "~2.6",
