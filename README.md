@@ -30,6 +30,7 @@ You have to add `ShapecodeTwigTemplateEventBundle` to your `AppKernel.php`:
 And if you didn't do it already you also have to add `ShapecodeTwigStringLoaderBundle` to your `AppKernel.php`:
 
 ``` php
+<?php
 // app/AppKernel.php
 //...
 class AppKernel extends Kernel
