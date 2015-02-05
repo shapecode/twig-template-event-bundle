@@ -76,6 +76,7 @@ services:
 <?php
 namespace Shapecode\Bundle\TwigTemplateEventBundle\EventListener;
 
+use Shapecode\Bundle\TwigTemplateEventBundle\Event\Code\TwigEventString;
 use Shapecode\Bundle\TwigTemplateEventBundle\Event\TwigTemplateEvent;
 
 /**
@@ -93,7 +94,9 @@ class TestTwigEventListener
     public function onTemplateEvent(TwigTemplateEvent $event)
     {
         if ($event->getEventName() == 'test') {
-            $event->addCode('hello world');
+            $event->addCode(new TwigEventString('hello {{ world }}', array(
+                'world' => 'World'
+            )));
         }
     }
 }
