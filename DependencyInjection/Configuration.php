@@ -19,12 +19,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        // $rootNode = $treeBuilder->root('shapecode_twig_template_event');
         $treeBuilder->root('shapecode_twig_template_event');
-
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
 
         return $treeBuilder;
     }
