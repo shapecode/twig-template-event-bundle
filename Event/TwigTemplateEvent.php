@@ -31,7 +31,7 @@ class TwigTemplateEvent extends Event
     protected $request;
 
     /**
-     * @var array
+     * @var TwigEventCodeInterface[]
      */
     protected $codes;
 
@@ -45,6 +45,14 @@ class TwigTemplateEvent extends Event
         $this->eventName = $eventName;
         $this->parameters = $parameters;
         $this->codes = array();
+    }
+
+    /**
+     * @return array
+     */
+    public function getParameters()
+    {
+        return $this->parameters;
     }
 
     /**
@@ -68,7 +76,7 @@ class TwigTemplateEvent extends Event
      */
     public function addCode(TwigEventCodeInterface $code)
     {
-        usort($this->codes, function ($a, $b) {
+        usort($this->codes, function (TwigEventCodeInterface $a, TwigEventCodeInterface $b) {
             /** @var TwigEventCodeInterface $a */
             /** @var TwigEventCodeInterface $b */
             if ($a->getPriority() == $b->getPriority()) {
