@@ -1,6 +1,8 @@
 Shapecode - Twig Template Event Bundle
 =======================
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/141b4c63-8fdc-478e-9404-d0787b96d830/big.png)](https://insight.sensiolabs.com/projects/141b4c63-8fdc-478e-9404-d0787b96d830)
+
 Give you the possibility to add code in a twig template dynamically.
 
 System requirements
