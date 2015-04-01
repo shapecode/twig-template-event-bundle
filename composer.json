@@ -25,15 +25,16 @@
         "php": ">=5.3.9",
         "twig/twig": "~1.16",
         "symfony/event-dispatcher": "~2.6",
-        "symfony/framework-bundle" : "~2.6",
-        "symfony/twig-bridge": "~2.6",
+        "symfony/dependency-injection": "~2.6",
+        "symfony/http-kernel": "~2.6",
+        "symfony/config": "~2.6",
+        "symfony/yaml": "~2.6",
         "symfony/twig-bundle": "~2.6",
         "shapecode/twig-string-loader-bundle": "~1.0"
     },
     "autoload": {
-        "psr-0": {
-            "Shapecode\\Bundle\\TwigTemplateEventBundle": ""
+        "psr-4": {
+            "Shapecode\\Bundle\\TwigTemplateEventBundle\\": ""
         }
-    },
-    "target-dir": "Shapecode/Bundle/TwigTemplateEventBundle"
+    }
 }
