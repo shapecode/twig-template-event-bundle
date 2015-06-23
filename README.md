@@ -5,14 +5,6 @@ Shapecode - Twig Template Event Bundle
 
 Give you the possibility to add code in a twig template dynamically.
 
-System requirements
------------------------------------
-
-* PHP >=5.3
-* Twig ~1.16
-* Shapecode Twig String Loader ~1.0
-* Symfony Event Dispatcher Bundle ~2.6
-
 Install instructions
 --------------------------------
 
