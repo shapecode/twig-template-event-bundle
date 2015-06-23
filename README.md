@@ -1,7 +1,12 @@
 Shapecode - Twig Template Event Bundle
 =======================
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/141b4c63-8fdc-478e-9404-d0787b96d830/big.png)](https://insight.sensiolabs.com/projects/141b4c63-8fdc-478e-9404-d0787b96d830)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/7d09594f-48b2-4748-b965-f10330bf31fd/mini.png)](https://insight.sensiolabs.com/projects/7d09594f-48b2-4748-b965-f10330bf31fd)
+[![Dependency Status](https://www.versioneye.com/user/projects/5589a217306662001d0001b2/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5589a217306662001d0001b2)
+[![Latest Stable Version](https://poser.pugx.org/shapecode/twig-template-event-bundle/v/stable)](https://packagist.org/packages/shapecode/twig-template-event-bundle)
+[![Total Downloads](https://poser.pugx.org/shapecode/twig-template-event-bundle/downloads)](https://packagist.org/packages/shapecode/twig-template-event-bundle)
+[![Latest Unstable Version](https://poser.pugx.org/shapecode/twig-template-event-bundle/v/unstable)](https://packagist.org/packages/shapecode/twig-template-event-bundle)
+[![License](https://poser.pugx.org/shapecode/twig-template-event-bundle/license)](https://packagist.org/packages/shapecode/twig-template-event-bundle)
 
 Give you the possibility to add code in a twig template dynamically.
 
