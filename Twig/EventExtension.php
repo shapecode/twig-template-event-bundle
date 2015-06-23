@@ -56,7 +56,10 @@ class EventExtension extends \Twig_Extension
     }
 
     /**
+     * @param \Twig_Environment $env
+     * @param $context
      * @param $name
+     * @param array $parameters
      * @return string
      */
     public function event(\Twig_Environment $env, $context, $name, array $parameters = array())
