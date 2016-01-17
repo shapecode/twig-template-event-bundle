@@ -42,10 +42,5 @@
         "psr-4": {
             "Shapecode\\Bundle\\TwigTemplateEventBundle\\": ""
         }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-develop": "1.3-dev"
-        }
     }
 }
