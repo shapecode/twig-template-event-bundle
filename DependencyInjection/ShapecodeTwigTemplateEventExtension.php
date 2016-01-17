@@ -16,7 +16,7 @@ class ShapecodeTwigTemplateEventExtension extends Extension
 {
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function load(array $configs, ContainerBuilder $container)
     {

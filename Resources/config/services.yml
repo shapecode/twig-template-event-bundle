@@ -6,7 +6,7 @@ services:
     # twig extensions
     shapecode.twig_template_event.twig_extension.event:
         class: %shapecode.twig_template_event.twig_extension.event.class%
-        arguments: [ @fragment.handler, @event_dispatcher, @request_stack ]
+        arguments: ["@fragment.handler", "@event_dispatcher", "@request_stack"]
         tags:
             - { name: twig.extension }
 

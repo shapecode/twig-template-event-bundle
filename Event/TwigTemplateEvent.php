@@ -15,24 +15,16 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class TwigTemplateEvent extends Event
 {
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private $parameters;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $eventName;
 
-    /**
-     * @var RequestStack
-     */
+    /** @var RequestStack */
     protected $request;
 
-    /**
-     * @var TwigEventCodeInterface[]
-     */
+    /** @var TwigEventCodeInterface[] */
     protected $codes;
 
     /**
