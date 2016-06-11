@@ -4,9 +4,10 @@ namespace Shapecode\Bundle\TwigTemplateEventBundle\Event\Code;
 
 /**
  * Class TwigEventInclude
+ *
  * @package Shapecode\Bundle\TwigTemplateEventBundle\Event\Code
- * @author Nikita Loges
- * @date 19.01.2015
+ * @author  Nikita Loges
+ * @date    19.01.2015
  */
 class TwigEventInclude extends TwigEventCode
 {
@@ -22,7 +23,7 @@ class TwigEventInclude extends TwigEventCode
      * @param array $parameters
      * @param int $priority
      */
-    public function __construct($templateString, array $parameters = array(), $priority = 0)
+    public function __construct($templateString, array $parameters = [], $priority = 0)
     {
         parent::__construct($priority);
 
@@ -57,7 +58,7 @@ class TwigEventInclude extends TwigEventCode
     /**
      * @param array $parameters
      */
-    public function setParameters(array $parameters = array())
+    public function setParameters(array $parameters = [])
     {
         $this->parameters = $parameters;
     }

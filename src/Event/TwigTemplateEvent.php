@@ -8,9 +8,10 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Class TwigTemplateEvent
+ *
  * @package Shapecode\Bundle\TwigTemplateEventBundle\Event
- * @author Nikita Loges
- * @date 10.01.2015
+ * @author  Nikita Loges
+ * @date    10.01.2015
  */
 class TwigTemplateEvent extends Event
 {
@@ -32,11 +33,11 @@ class TwigTemplateEvent extends Event
      * @param array $parameters
      * @param RequestStack $request
      */
-    public function __construct($eventName, array $parameters = array(), RequestStack $request)
+    public function __construct($eventName, array $parameters = [], RequestStack $request)
     {
         $this->eventName = $eventName;
         $this->parameters = $parameters;
-        $this->codes = array();
+        $this->codes = [];
     }
 
     /**
