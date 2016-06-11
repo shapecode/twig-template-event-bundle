@@ -4,9 +4,10 @@ namespace Shapecode\Bundle\TwigTemplateEventBundle\Event\Code;
 
 /**
  * Class TwigEventCode
+ *
  * @package Shapecode\Bundle\TwigTemplateEventBundle\Event\Code
- * @author Nikita Loges
- * @date 19.01.2015
+ * @author  Nikita Loges
+ * @date    19.01.2015
  */
 abstract class TwigEventCode implements TwigEventCodeInterface
 {

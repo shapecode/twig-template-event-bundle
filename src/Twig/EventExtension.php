@@ -13,9 +13,10 @@ use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
 
 /**
  * Class EventExtension
+ *
  * @package Shapecode\Bundle\TwigTemplateEventBundle\Twig
- * @author Nikita Loges
- * @date 10.01.2015
+ * @author  Nikita Loges
+ * @date    10.01.2015
  */
 class EventExtension extends \Twig_Extension
 {
@@ -46,13 +47,13 @@ class EventExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array(
-            new \Twig_SimpleFunction('event', array($this, 'event'), array(
+        return [
+            new \Twig_SimpleFunction('event', [$this, 'event'], [
                 'needs_environment' => true,
-                'needs_context' => true,
-                'is_safe' => array('all')
-            )),
-        );
+                'needs_context'     => true,
+                'is_safe'           => ['all']
+            ]),
+        ];
     }
 
     /**
@@ -60,9 +61,10 @@ class EventExtension extends \Twig_Extension
      * @param $context
      * @param $name
      * @param array $parameters
+     *
      * @return string
      */
-    public function event(\Twig_Environment $env, $context, $name, array $parameters = array())
+    public function event(\Twig_Environment $env, $context, $name, array $parameters = [])
     {
 
         $event = new TwigTemplateEvent($name, $parameters, $this->request);
@@ -75,6 +77,7 @@ class EventExtension extends \Twig_Extension
      * @param \Twig_Environment $env
      * @param $context
      * @param TwigTemplateEvent $event
+     *
      * @return string
      */
     protected function render(\Twig_Environment $env, $context, TwigTemplateEvent $event)

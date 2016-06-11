@@ -13,12 +13,12 @@
     ],
     "type": "symfony-bundle",
     "license": "MIT",
-    "homepage": "http://shapecode.de",
+    "homepage": "https://github.com/shapecode/twig-template-event-bundle",
     "support": {
-        "email": "support@nikita-loges.de",
-        "issues": "https://bitbucket.org/shapecode/symfony-twig-template-event-bundle/issues",
-        "source": "https://bitbucket.org/shapecode/symfony-twig-template-event-bundle/downloads",
-        "wiki": "https://bitbucket.org/shapecode/symfony-twig-template-event-bundle/wiki/Home"
+        "email": "support@shapecode.de",
+        "issues": "https://github.com/shapecode/twig-template-event-bundle/issues",
+        "source": "https://github.com/shapecode/twig-template-event-bundle/releases",
+        "wiki": "https://github.com/shapecode/twig-template-event-bundle/wiki"
     },
     "authors": [
         {
@@ -28,24 +28,37 @@
         }
     ],
     "require": {
-        "php": ">=5.5.9",
+        "php": "~5.5|~7.0",
+
         "twig/twig": "~1.16|~2.0@dev",
+
         "symfony/event-dispatcher": "~2.8|~3.0",
         "symfony/dependency-injection": "~2.8|~3.0",
         "symfony/http-foundation": "~2.8|~3.0",
         "symfony/http-kernel": "~2.8|~3.0",
         "symfony/config": "~2.8|~3.0",
         "symfony/twig-bundle": "~2.8|~3.0",
+
         "shapecode/twig-string-loader-bundle": "~1.2"
+    },
+    "require-dev": {
+        "symfony/phpunit-bridge": "~2.8|~3.0"
     },
     "autoload": {
         "psr-4": {
-            "Shapecode\\Bundle\\TwigTemplateEventBundle\\": ""
+            "Shapecode\\Bundle\\TwigTemplateEventBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Shapecode\\Bundle\\TwigTemplateEventBundle\\Tests\\": "tests/"
         }
     },
     "extra": {
         "branch-alias": {
-            "dev-develop": "1.4-dev"
+            "dev-release/1.3": "1.3-dev"
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

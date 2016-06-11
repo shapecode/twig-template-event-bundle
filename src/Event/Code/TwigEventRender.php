@@ -4,9 +4,10 @@ namespace Shapecode\Bundle\TwigTemplateEventBundle\Event\Code;
 
 /**
  * Class TwigEventRender
+ *
  * @package Shapecode\Bundle\TwigTemplateEventBundle\Event\Code
- * @author Nikita Loges
- * @date 19.01.2015
+ * @author  Nikita Loges
+ * @date    19.01.2015
  */
 class TwigEventRender extends TwigEventCode
 {
@@ -30,7 +31,7 @@ class TwigEventRender extends TwigEventCode
      * @param array $query
      * @param string $strategy
      */
-    public function __construct($controller, array $attributes = array(), $priority = 0, array $query = array(), $strategy = 'inline')
+    public function __construct($controller, array $attributes = [], $priority = 0, array $query = [], $strategy = 'inline')
     {
         parent::__construct($priority);
 
@@ -67,7 +68,7 @@ class TwigEventRender extends TwigEventCode
     /**
      * @param array $attributes
      */
-    public function setAttributes(array $attributes = array())
+    public function setAttributes(array $attributes = [])
     {
         $this->attributes = $attributes;
     }
@@ -83,7 +84,7 @@ class TwigEventRender extends TwigEventCode
     /**
      * @param array $query
      */
-    public function setQuery(array $query = array())
+    public function setQuery(array $query = [])
     {
         $this->query = $query;
     }

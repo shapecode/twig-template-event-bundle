@@ -9,8 +9,9 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
  * Class ShapecodeTwigTemplateEventExtension
+ *
  * @package Shapecode\Bundle\TwigTemplateEventBundle\DependencyInjection
- * @author Nikita Loges
+ * @author  Nikita Loges
  */
 class ShapecodeTwigTemplateEventExtension extends Extension
 {
