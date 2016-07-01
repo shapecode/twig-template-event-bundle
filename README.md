@@ -1,7 +1,7 @@
 Shapecode - Twig Template Event Bundle
 =======================
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/7d09594f-48b2-4748-b965-f10330bf31fd/mini.png)](https://insight.sensiolabs.com/projects/7d09594f-48b2-4748-b965-f10330bf31fd)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/a7d4b39b-19d2-4a0d-adc8-4f072c073176/mini.png)](https://insight.sensiolabs.com/projects/a7d4b39b-19d2-4a0d-adc8-4f072c073176)
 [![Dependency Status](https://www.versioneye.com/user/projects/5589a217306662001d0001b2/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5589a217306662001d0001b2)
 [![Latest Stable Version](https://poser.pugx.org/shapecode/twig-template-event-bundle/v/stable)](https://packagist.org/packages/shapecode/twig-template-event-bundle)
 [![Total Downloads](https://poser.pugx.org/shapecode/twig-template-event-bundle/downloads)](https://packagist.org/packages/shapecode/twig-template-event-bundle)
