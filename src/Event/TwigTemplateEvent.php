@@ -11,13 +11,18 @@ use Symfony\Component\HttpFoundation\RequestStack;
  *
  * @package Shapecode\Bundle\TwigTemplateEventBundle\Event
  * @author  Nikita Loges
- * @date    10.01.2015
  */
 class TwigTemplateEvent extends Event
 {
 
+    const PREFIX = 'shapecode.twig_template';
+    const TEMPLATE_EVENT = 'shapecode.twig_template.event';
+
     /** @var array */
     private $parameters;
+
+    /** @var array */
+    private $context;
 
     /** @var string */
     protected $eventName;
@@ -29,13 +34,15 @@ class TwigTemplateEvent extends Event
     protected $codes;
 
     /**
-     * @param $eventName
-     * @param array $parameters
+     * @param              $eventName
+     * @param array        $context
+     * @param array        $parameters
      * @param RequestStack $request
      */
-    public function __construct($eventName, array $parameters = [], RequestStack $request)
+    public function __construct($eventName, array $context = [], array $parameters = [], RequestStack $request)
     {
         $this->eventName = $eventName;
+        $this->context = $context;
         $this->parameters = $parameters;
         $this->codes = [];
     }
@@ -46,6 +53,14 @@ class TwigTemplateEvent extends Event
     public function getParameters()
     {
         return $this->parameters;
+    }
+
+    /**
+     * @return array
+     */
+    public function getContext()
+    {
+        return $this->context;
     }
 
     /**
@@ -69,21 +84,11 @@ class TwigTemplateEvent extends Event
      */
     public function addCode(TwigEventCodeInterface $code)
     {
-        usort($this->codes, function (TwigEventCodeInterface $a, TwigEventCodeInterface $b) {
-            /** @var TwigEventCodeInterface $a */
-            /** @var TwigEventCodeInterface $b */
-            if ($a->getPriority() == $b->getPriority()) {
-                return 0;
-            }
-
-            return ($a->getPriority() < $b->getPriority()) ? -1 : 1;
-        });
-
         $this->codes[] = $code;
     }
 
     /**
-     * @return array
+     * @return TwigEventCodeInterface[]
      */
     public function getCodes()
     {

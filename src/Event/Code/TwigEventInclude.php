@@ -62,4 +62,12 @@ class TwigEventInclude extends TwigEventCode
     {
         $this->parameters = $parameters;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getHandlerName()
+    {
+        return 'shapecode_twig_template_event.event_handler.include';
+    }
 }

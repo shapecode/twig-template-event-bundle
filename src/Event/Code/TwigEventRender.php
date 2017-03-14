@@ -104,4 +104,12 @@ class TwigEventRender extends TwigEventCode
     {
         $this->strategy = $strategy;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getHandlerName()
+    {
+        return 'shapecode_twig_template_event.event_handler.render';
+    }
 }

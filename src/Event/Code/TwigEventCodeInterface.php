@@ -20,4 +20,9 @@ interface TwigEventCodeInterface
      * @param int $priority
      */
     public function setPriority($priority);
+
+    /**
+     * @return int
+     */
+    public function getHandlerName();
 }

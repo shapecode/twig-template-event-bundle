@@ -1,17 +1,19 @@
-parameters:
-    shapecode.twig_template_event.twig_extension.event.class: Shapecode\Bundle\TwigTemplateEventBundle\Twig\EventExtension
-    shapecode.twig_template_event.event.test.class: Shapecode\Bundle\TwigTemplateEventBundle\EventListener\TestTwigEventListener
-
 services:
+
+    # handler
+    shapecode_twig_template_event.event_handler.include:
+        class: Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler\IncludeHandler
+
+    shapecode_twig_template_event.event_handler.render:
+        class: Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler\RenderHandler
+        arguments: ["@fragment.handler"]
+
+    shapecode_twig_template_event.event_handler.string:
+        class: Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler\StringHandler
+
     # twig extensions
-    shapecode.twig_template_event.twig_extension.event:
-        class: %shapecode.twig_template_event.twig_extension.event.class%
-        arguments: ["@fragment.handler", "@event_dispatcher", "@request_stack"]
+    shapecode_twig_template_event.twig_extension.event:
+        class: Shapecode\Bundle\TwigTemplateEventBundle\Twig\EventExtension
+        arguments: ["@service_container"]
         tags:
             - { name: twig.extension }
-
-    # twig events
-    shapecode.twig_template_event.event.test:
-        class: %shapecode.twig_template_event.event.test.class%
-        tags:
-            - { name: kernel.event_listener, event: twig.template.event, method: onTemplateEvent }
