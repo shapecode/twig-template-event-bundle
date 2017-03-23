@@ -7,7 +7,6 @@ namespace Shapecode\Bundle\TwigTemplateEventBundle\Event\Code;
  *
  * @package Shapecode\Bundle\TwigTemplateEventBundle\Event\Code
  * @author  Nikita Loges
- * @date    19.01.2015
  */
 abstract class TwigEventCode implements TwigEventCodeInterface
 {

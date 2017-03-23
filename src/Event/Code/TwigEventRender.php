@@ -7,7 +7,6 @@ namespace Shapecode\Bundle\TwigTemplateEventBundle\Event\Code;
  *
  * @package Shapecode\Bundle\TwigTemplateEventBundle\Event\Code
  * @author  Nikita Loges
- * @date    19.01.2015
  */
 class TwigEventRender extends TwigEventCode
 {
@@ -26,9 +25,9 @@ class TwigEventRender extends TwigEventCode
 
     /**
      * @param string $controller
-     * @param array $attributes
-     * @param int $priority
-     * @param array $query
+     * @param array  $attributes
+     * @param int    $priority
+     * @param array  $query
      * @param string $strategy
      */
     public function __construct($controller, array $attributes = [], $priority = 0, array $query = [], $strategy = 'inline')
@@ -103,5 +102,13 @@ class TwigEventRender extends TwigEventCode
     public function setStrategy($strategy)
     {
         $this->strategy = $strategy;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getHandlerName()
+    {
+        return 'shapecode_twig_template_event.event_handler.render';
     }
 }

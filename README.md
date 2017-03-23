@@ -80,9 +80,9 @@ use Shapecode\Bundle\TwigTemplateEventBundle\Event\TwigTemplateEvent;
 
 /**
  * Class TestTwigEventListener
+ 
  * @package Shapecode\Bundle\TwigTemplateEventBundle\EventListener
  * @author Nikita Loges
- * @date 10.01.2015
  */
 class TestTwigEventListener
 {
