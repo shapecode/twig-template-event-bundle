@@ -1,5 +1,10 @@
 services:
 
+    # services
+    shapecode_twig_template_event.services.event:
+        class: Shapecode\Bundle\TwigTemplateEventBundle\Services\EventService
+        arguments: ["@service_container"]
+
     # handler
     shapecode_twig_template_event.event_handler.include:
         class: Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler\IncludeHandler
@@ -14,6 +19,6 @@ services:
     # twig extensions
     shapecode_twig_template_event.twig_extension.event:
         class: Shapecode\Bundle\TwigTemplateEventBundle\Twig\EventExtension
-        arguments: ["@service_container"]
+        arguments: ["@shapecode_twig_template_event.services.event"]
         tags:
             - { name: twig.extension }

@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class TwigTemplateEvent extends Event
 {
 
+    const DEPRECATED = 'twig.template.event';
     const PREFIX = 'shapecode.twig_template';
     const TEMPLATE_EVENT = 'shapecode.twig_template.event';
 
