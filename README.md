@@ -68,7 +68,7 @@ services:
     shapecode.twig_template_event.event.test:
         class: %shapecode.twig_template_event.event.test.class%
         tags:
-            - { name: kernel.event_listener, event: twig.template.event, method: onTemplateEvent }
+            - { name: kernel.event_listener, event: shapecode.twig_template.event, method: onTemplateEvent }
 ```
 
 ``` php
