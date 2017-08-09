@@ -3,18 +3,30 @@ services:
     # services
     shapecode_twig_template_event.services.event:
         class: Shapecode\Bundle\TwigTemplateEventBundle\Services\EventService
-        arguments: ["@service_container"]
+        arguments:
+            - '@event_dispatcher'
+            - '@request_stack'
+            - '@shapecode_twig_template_event.handler_manager'
 
     # handler
+    shapecode_twig_template_event.handler_manager:
+        class: Shapecode\Bundle\TwigTemplateEventBundle\Manager\HandlerManager
+
     shapecode_twig_template_event.event_handler.include:
         class: Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler\IncludeHandler
+        tags:
+            - { name: shapecode_twig_template_event.handler }
 
     shapecode_twig_template_event.event_handler.render:
         class: Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler\RenderHandler
         arguments: ["@fragment.handler"]
+        tags:
+            - { name: shapecode_twig_template_event.handler }
 
     shapecode_twig_template_event.event_handler.string:
         class: Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler\StringHandler
+        tags:
+            - { name: shapecode_twig_template_event.handler }
 
     # twig extensions
     shapecode_twig_template_event.twig_extension.event:

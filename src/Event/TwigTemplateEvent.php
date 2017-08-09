@@ -1,10 +1,12 @@
 <?php
+
 namespace Shapecode\Bundle\TwigTemplateEventBundle\Event;
 
 use Shapecode\Bundle\TwigTemplateEventBundle\Event\Code\TwigEventCodeInterface;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Twig\Environment;
 
 /**
  * Class TwigTemplateEvent
@@ -19,11 +21,14 @@ class TwigTemplateEvent extends Event
     const PREFIX = 'shapecode.twig_template';
     const TEMPLATE_EVENT = 'shapecode.twig_template.event';
 
-    /** @var array */
-    private $parameters;
+    /** @var Environment */
+    protected $environment;
 
     /** @var array */
-    private $context;
+    protected $parameters;
+
+    /** @var array */
+    protected $context;
 
     /** @var string */
     protected $eventName;
@@ -35,17 +40,27 @@ class TwigTemplateEvent extends Event
     protected $codes;
 
     /**
-     * @param              $eventName
-     * @param array        $context
-     * @param array        $parameters
-     * @param RequestStack $request
+     * @param                   $eventName
+     * @param Environment $environment
+     * @param array             $context
+     * @param array             $parameters
+     * @param RequestStack      $request
      */
-    public function __construct($eventName, array $context = [], array $parameters = [], RequestStack $request)
+    public function __construct($eventName, Environment $environment, array $context = [], array $parameters = [], RequestStack $request)
     {
         $this->eventName = $eventName;
+        $this->environment = $environment;
         $this->context = $context;
         $this->parameters = $parameters;
         $this->codes = [];
+    }
+
+    /**
+     * @return Environment
+     */
+    public function getEnvironment()
+    {
+        return $this->environment;
     }
 
     /**

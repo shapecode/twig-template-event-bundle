@@ -1,7 +1,10 @@
 <?php
+
 namespace Shapecode\Bundle\TwigTemplateEventBundle\Twig;
 
 use Shapecode\Bundle\TwigTemplateEventBundle\Services\EventServiceInterface;
+use Twig\Environment;
+use Twig\Extension\AbstractExtension;
 
 /**
  * Class EventExtension
@@ -9,7 +12,7 @@ use Shapecode\Bundle\TwigTemplateEventBundle\Services\EventServiceInterface;
  * @package Shapecode\Bundle\TwigTemplateEventBundle\Twig
  * @author  Nikita Loges
  */
-class EventExtension extends \Twig_Extension
+class EventExtension extends AbstractExtension
 {
 
     /** @var EventServiceInterface */
@@ -30,21 +33,23 @@ class EventExtension extends \Twig_Extension
     {
         return [
             new \Twig_SimpleFunction('event', [$this, 'event'], [
-                'needs_context' => true,
-                'is_safe'       => ['all']
+                'needs_environment' => true,
+                'needs_context'     => true,
+                'is_safe'           => ['all']
             ]),
         ];
     }
 
     /**
+     * @param Environment       $environment
      * @param                   $context
      * @param                   $name
      * @param array             $parameters
      *
      * @return string
      */
-    public function event($context, $name, array $parameters = [])
+    public function event(Environment $environment, $context, $name, array $parameters = [])
     {
-        return $this->eventService->handleEvent($name, $parameters, $context);
+        return $this->eventService->handleEvent($name, $environment, $parameters, $context);
     }
 }

@@ -4,7 +4,10 @@ namespace Shapecode\Bundle\TwigTemplateEventBundle\Services;
 
 use Shapecode\Bundle\TwigTemplateEventBundle\Event\Code\TwigEventCodeInterface;
 use Shapecode\Bundle\TwigTemplateEventBundle\Event\TwigTemplateEvent;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Shapecode\Bundle\TwigTemplateEventBundle\Manager\HandlerManagerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Twig\Environment;
 
 /**
  * Class EventService
@@ -15,45 +18,50 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class EventService implements EventServiceInterface
 {
 
-    /** @var ContainerInterface */
-    protected $container;
+    /** @var EventDispatcherInterface */
+    protected $dispatcher;
+
+    /** @var RequestStack */
+    protected $requestStack;
+
+    /** @var HandlerManagerInterface */
+    protected $manager;
 
     /**
-     * @param ContainerInterface $container
+     * @param EventDispatcherInterface $dispatcher
+     * @param RequestStack             $requestStack
+     * @param HandlerManagerInterface  $manager
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(EventDispatcherInterface $dispatcher, RequestStack $requestStack, HandlerManagerInterface $manager)
     {
-        $this->container = $container;
+        $this->dispatcher = $dispatcher;
+        $this->requestStack = $requestStack;
+        $this->manager = $manager;
     }
 
     /**
      * @inheritdoc
      */
-    public function handleEvent($name, array $parameters = [], array $context = [])
+    public function handleEvent($name, Environment $environment, array $parameters = [], array $context = [])
     {
-        $dispatcher = $this->container->get('event_dispatcher');
-        $requestStack = $this->container->get('request_stack');
+        $event = new TwigTemplateEvent($name, $environment, $context, $parameters, $this->requestStack);
 
-        $event = new TwigTemplateEvent($name, $context, $parameters, $requestStack);
+        $this->dispatcher->dispatch(TwigTemplateEvent::DEPRECATED, $event);
+        $this->dispatcher->dispatch(TwigTemplateEvent::TEMPLATE_EVENT, $event);
+        $this->dispatcher->dispatch(TwigTemplateEvent::PREFIX . '.' . $name, $event);
 
-        $dispatcher->dispatch(TwigTemplateEvent::DEPRECATED, $event);
-        $dispatcher->dispatch(TwigTemplateEvent::TEMPLATE_EVENT, $event);
-        $dispatcher->dispatch(TwigTemplateEvent::PREFIX . '.' . $name, $event);
-
-        return $this->render($context, $event);
+        return $this->render($event);
     }
 
     /**
-     * @param                   $context
      * @param TwigTemplateEvent $event
      *
      * @return string
      */
-    protected function render($context, TwigTemplateEvent $event)
+    protected function render(TwigTemplateEvent $event)
     {
-        $twig = $this->container->get('twig');
-
         $codes = $event->getCodes();
+
         usort($codes, function (TwigEventCodeInterface $a, TwigEventCodeInterface $b) {
             if ($a->getPriority() == $b->getPriority()) {
                 return 0;
@@ -62,14 +70,14 @@ class EventService implements EventServiceInterface
             return ($a->getPriority() < $b->getPriority()) ? -1 : 1;
         });
 
-        $compiled = '';
+        $compiled = [];
 
         if (count($codes)) {
             foreach ($codes as $code) {
-                $compiled .= $this->container->get($code->getHandlerName())->handle($code, $twig, $context);
+                $compiled[] = $this->manager->getHandler($code->getHandlerName())->handle($code, $event->getEnvironment(), $event->getContext());
             }
         }
 
-        return $compiled;
+        return join('', $compiled);
     }
 }

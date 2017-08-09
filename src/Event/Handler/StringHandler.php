@@ -21,7 +21,9 @@ class StringHandler implements HandlerInterface
      */
     public function handle(TwigEventCodeInterface $code, \Twig_Environment $env, array $context = [])
     {
-        return $env->render($code->getTemplateString(), array_replace_recursive($context, $code->getParameters()));
+        $parameters = array_replace_recursive($context, $code->getParameters());
+
+        return $env->render($code->getTemplateString(), $parameters);
     }
 
 }
