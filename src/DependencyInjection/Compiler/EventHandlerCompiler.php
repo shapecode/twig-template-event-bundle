@@ -11,7 +11,6 @@ use Symfony\Component\DependencyInjection\Reference;
  *
  * @package Shapecode\Bundle\TwigTemplateEventBundle\DependencyInjection\Compiler
  * @author  Nikita Loges
- * @company tenolo GbR
  */
 class EventHandlerCompiler implements CompilerPassInterface
 {

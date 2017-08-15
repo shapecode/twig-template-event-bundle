@@ -9,7 +9,6 @@ use Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler\HandlerInterface;
  *
  * @package Shapecode\Bundle\TwigTemplateEventBundle\Manager
  * @author  Nikita Loges
- * @company tenolo GbR
  */
 interface HandlerManagerInterface
 {
