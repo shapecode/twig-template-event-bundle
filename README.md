@@ -1,8 +1,7 @@
 Shapecode - Twig Template Event Bundle
 =======================
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/a7d4b39b-19d2-4a0d-adc8-4f072c073176/mini.png)](https://insight.sensiolabs.com/projects/a7d4b39b-19d2-4a0d-adc8-4f072c073176)
-[![Dependency Status](https://www.versioneye.com/user/projects/5589a217306662001d0001b2/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5589a217306662001d0001b2)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/7d09594f-48b2-4748-b965-f10330bf31fd/mini.png)](https://insight.sensiolabs.com/projects/7d09594f-48b2-4748-b965-f10330bf31fd)
 [![Latest Stable Version](https://poser.pugx.org/shapecode/twig-template-event-bundle/v/stable)](https://packagist.org/packages/shapecode/twig-template-event-bundle)
 [![Total Downloads](https://poser.pugx.org/shapecode/twig-template-event-bundle/downloads)](https://packagist.org/packages/shapecode/twig-template-event-bundle)
 [![Latest Unstable Version](https://poser.pugx.org/shapecode/twig-template-event-bundle/v/unstable)](https://packagist.org/packages/shapecode/twig-template-event-bundle)
@@ -18,7 +17,7 @@ First you need to add `shapecode/twig-template-event-bundle` to `composer.json`:
 ``` json
 {
    "require": {
-        "shapecode/twig-template-event-bundle": "~1.0"
+        "shapecode/twig-template-event-bundle": "~3.0"
     }
 }
 ```
@@ -80,7 +79,6 @@ use Shapecode\Bundle\TwigTemplateEventBundle\Event\TwigTemplateEvent;
 
 /**
  * Class TestTwigEventListener
- 
  * @package Shapecode\Bundle\TwigTemplateEventBundle\EventListener
  * @author Nikita Loges
  */
@@ -99,13 +97,4 @@ class TestTwigEventListener
         }
     }
 }
-```
-
-Update instructions
----------------------------
-
-Do a [composer](https://getcomposer.org/doc/00-intro.md) update.
-
-```bash
-php composer.phar update
 ```

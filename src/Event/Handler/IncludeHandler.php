@@ -21,6 +21,9 @@ class IncludeHandler implements HandlerInterface
      */
     public function handle(TwigEventCodeInterface $code, \Twig_Environment $env, array $context = [])
     {
-        return $env->resolveTemplate($code->getTemplate())->render(array_replace_recursive($context, $code->getParameters()));
+        $parameters = array_replace_recursive($context, $code->getParameters());
+        $template = $env->resolveTemplate($code->getTemplate());
+
+        return $template->render($parameters);
     }
 }
