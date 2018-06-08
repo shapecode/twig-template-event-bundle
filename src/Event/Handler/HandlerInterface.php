@@ -3,6 +3,7 @@
 namespace Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler;
 
 use Shapecode\Bundle\TwigTemplateEventBundle\Event\Code\TwigEventCodeInterface;
+use Twig\Environment;
 
 /**
  * Interface HandlerInterface
@@ -15,11 +16,11 @@ interface HandlerInterface
 
     /**
      * @param TwigEventCodeInterface $code
-     * @param \Twig_Environment      $env
+     * @param Environment            $env
      * @param array                  $context
      *
      * @return string
      */
-    public function handle(TwigEventCodeInterface $code, \Twig_Environment $env, array $context = []);
+    public function handle(TwigEventCodeInterface $code, Environment $env, array $context = []);
 
 }

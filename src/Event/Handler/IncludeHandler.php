@@ -4,6 +4,7 @@ namespace Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler;
 
 use Shapecode\Bundle\TwigTemplateEventBundle\Event\Code\TwigEventCodeInterface;
 use Shapecode\Bundle\TwigTemplateEventBundle\Event\Code\TwigEventInclude;
+use Twig\Environment;
 
 /**
  * Class IncludeHandler
@@ -19,7 +20,7 @@ class IncludeHandler implements HandlerInterface
      *
      * @param TwigEventInclude $code
      */
-    public function handle(TwigEventCodeInterface $code, \Twig_Environment $env, array $context = [])
+    public function handle(TwigEventCodeInterface $code, Environment $env, array $context = [])
     {
         $parameters = array_replace_recursive($context, $code->getParameters());
         $template = $env->resolveTemplate($code->getTemplate());

@@ -78,6 +78,6 @@ class EventService implements EventServiceInterface
             }
         }
 
-        return join('', $compiled);
+        return implode('', $compiled);
     }
 }

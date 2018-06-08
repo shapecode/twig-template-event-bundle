@@ -5,6 +5,7 @@ namespace Shapecode\Bundle\TwigTemplateEventBundle\Twig;
 use Shapecode\Bundle\TwigTemplateEventBundle\Services\EventServiceInterface;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
 /**
  * Class EventExtension
@@ -32,7 +33,7 @@ class EventExtension extends AbstractExtension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('event', [$this, 'event'], [
+            new TwigFunction('event', [$this, 'event'], [
                 'needs_environment' => true,
                 'needs_context'     => true,
                 'is_safe'           => ['all']

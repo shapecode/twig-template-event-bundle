@@ -4,6 +4,7 @@ namespace Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler;
 
 use Shapecode\Bundle\TwigTemplateEventBundle\Event\Code\TwigEventCodeInterface;
 use Shapecode\Bundle\TwigTemplateEventBundle\Event\Code\TwigEventString;
+use Twig\Environment;
 
 /**
  * Class StringHandler
@@ -19,7 +20,7 @@ class StringHandler implements HandlerInterface
      *
      * @param TwigEventString $code
      */
-    public function handle(TwigEventCodeInterface $code, \Twig_Environment $env, array $context = [])
+    public function handle(TwigEventCodeInterface $code, Environment $env, array $context = [])
     {
         $parameters = array_replace_recursive($context, $code->getParameters());
 

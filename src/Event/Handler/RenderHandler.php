@@ -6,6 +6,7 @@ use Shapecode\Bundle\TwigTemplateEventBundle\Event\Code\TwigEventCodeInterface;
 use Shapecode\Bundle\TwigTemplateEventBundle\Event\Code\TwigEventRender;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
+use Twig\Environment;
 
 /**
  * Class RenderHandler
@@ -32,7 +33,7 @@ class RenderHandler implements HandlerInterface
      *
      * @param TwigEventRender $code
      */
-    public function handle(TwigEventCodeInterface $code, \Twig_Environment $env, array $context = [])
+    public function handle(TwigEventCodeInterface $code, Environment $env, array $context = [])
     {
         $reference = new ControllerReference($code->getController(), $code->getAttributes(), $code->getQuery());
 
