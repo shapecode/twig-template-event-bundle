@@ -52,6 +52,7 @@ class TwigTemplateEvent extends Event
         $this->environment = $environment;
         $this->context = $context;
         $this->parameters = $parameters;
+        $this->request = $request;
         $this->codes = [];
     }
 
