@@ -41,7 +41,7 @@
 
         "twig/twig": "~1.34|~2.0",
 
-        "shapecode/twig-string-loader-bundle": "~1.2"
+        "shapecode/twig-string-loader-bundle": "~1.2|~2.0"
     },
     "autoload": {
         "psr-4": {
