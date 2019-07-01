@@ -1,11 +1,13 @@
 Shapecode - Twig Template Event Bundle
 =======================
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/7d09594f-48b2-4748-b965-f10330bf31fd/mini.png)](https://insight.sensiolabs.com/projects/7d09594f-48b2-4748-b965-f10330bf31fd)
-[![Latest Stable Version](https://poser.pugx.org/shapecode/twig-template-event-bundle/v/stable)](https://packagist.org/packages/shapecode/twig-template-event-bundle)
-[![Total Downloads](https://poser.pugx.org/shapecode/twig-template-event-bundle/downloads)](https://packagist.org/packages/shapecode/twig-template-event-bundle)
-[![Latest Unstable Version](https://poser.pugx.org/shapecode/twig-template-event-bundle/v/unstable)](https://packagist.org/packages/shapecode/twig-template-event-bundle)
-[![License](https://poser.pugx.org/shapecode/twig-template-event-bundle/license)](https://packagist.org/packages/shapecode/twig-template-event-bundle)
+[![paypal](https://img.shields.io/badge/Donate-Paypal-blue.svg)](http://paypal.me/nloges)
+
+[![PHP Version](https://img.shields.io/packagist/php-v/shapecode/twig-template-event-bundle.svg)](https://packagist.org/packages/shapecode/twig-template-event-bundle)
+[![Latest Stable Version](https://img.shields.io/packagist/v/shapecode/twig-template-event-bundle.svg?label=stable)](https://packagist.org/packages/shapecode/twig-template-event-bundle)
+[![Latest Unstable Version](https://img.shields.io/packagist/vpre/shapecode/twig-template-event-bundle.svg?label=unstable)](https://packagist.org/packages/shapecode/twig-template-event-bundle)
+[![Total Downloads](https://img.shields.io/packagist/dt/shapecode/twig-template-event-bundle.svg)](https://packagist.org/packages/shapecode/twig-template-event-bundle)
+[![License](https://img.shields.io/packagist/l/shapecode/twig-template-event-bundle.svg)](https://packagist.org/packages/shapecode/twig-template-event-bundle)
 
 Give you the possibility to add code in a twig template dynamically.
 
