@@ -23,8 +23,8 @@
     "authors": [
         {
             "name": "Nikita Loges",
-            "homepage": "http://nikita-loges.de",
-            "email": "develop@nikita-loges.de"
+            "homepage": "https://loges.one",
+            "email": "dev@loges.one"
         }
     ],
     "require": {
@@ -39,7 +39,7 @@
 
         "doctrine/common": "~2.6",
 
-        "twig/twig": "~1.34|~2.0",
+        "twig/twig": "~1.42|~2.11|~3.0",
 
         "shapecode/twig-string-loader-bundle": "~1.2|~2.0"
     },
