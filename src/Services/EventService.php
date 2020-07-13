@@ -7,6 +7,7 @@ use Shapecode\Bundle\TwigTemplateEventBundle\Event\TwigTemplateEvent;
 use Shapecode\Bundle\TwigTemplateEventBundle\Manager\HandlerManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpKernel\Kernel;
 use Twig\Environment;
 
 /**
@@ -46,9 +47,15 @@ class EventService implements EventServiceInterface
     {
         $event = new TwigTemplateEvent($name, $environment, $context, $parameters, $this->requestStack);
 
-        $this->dispatcher->dispatch(TwigTemplateEvent::DEPRECATED, $event);
-        $this->dispatcher->dispatch(TwigTemplateEvent::TEMPLATE_EVENT, $event);
-        $this->dispatcher->dispatch(TwigTemplateEvent::PREFIX . '.' . $name, $event);
+        if (Kernel::VERSION_ID >= 40300) {
+            $this->dispatcher->dispatch($event, TwigTemplateEvent::DEPRECATED);
+            $this->dispatcher->dispatch($event, TwigTemplateEvent::TEMPLATE_EVENT);
+            $this->dispatcher->dispatch($event, TwigTemplateEvent::PREFIX . '.' . $name);
+        } else {
+            $this->dispatcher->dispatch(TwigTemplateEvent::DEPRECATED, $event);
+            $this->dispatcher->dispatch(TwigTemplateEvent::TEMPLATE_EVENT, $event);
+            $this->dispatcher->dispatch(TwigTemplateEvent::PREFIX . '.' . $name, $event);
+        }
 
         return $this->render($event);
     }
