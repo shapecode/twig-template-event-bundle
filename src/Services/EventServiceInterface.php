@@ -1,25 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Shapecode\Bundle\TwigTemplateEventBundle\Services;
 
 use Twig\Environment;
 
-/**
- * Interface EventServiceInterface
- *
- * @package Shapecode\Bundle\TwigTemplateEventBundle\Services
- * @author  Nikita Loges
- */
 interface EventServiceInterface
 {
-
     /**
-     * @param                   $name
-     * @param Environment       $environment
-     * @param array             $parameters
-     * @param array             $context
-     *
-     * @return mixed
+     * @param array<string, mixed> $parameters
+     * @param array<string, mixed> $context
      */
-    public function handleEvent($name, Environment $environment, array $parameters = [], array $context = []);
+    public function handleEvent(string $name, Environment $environment, array $parameters = [], array $context = []): string;
 }

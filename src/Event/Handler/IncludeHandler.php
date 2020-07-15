@@ -1,29 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler;
 
 use Shapecode\Bundle\TwigTemplateEventBundle\Event\Code\TwigEventCodeInterface;
 use Shapecode\Bundle\TwigTemplateEventBundle\Event\Code\TwigEventInclude;
 use Twig\Environment;
 
-/**
- * Class IncludeHandler
- *
- * @package Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler
- * @author  Nikita Loges
- */
+use function array_replace_recursive;
+use function assert;
+
 class IncludeHandler implements HandlerInterface
 {
-
     /**
      * @inheritDoc
-     *
-     * @param TwigEventInclude $code
      */
-    public function handle(TwigEventCodeInterface $code, Environment $env, array $context = [])
+    public function handle(TwigEventCodeInterface $code, Environment $env, array $context = []): string
     {
+        assert($code instanceof TwigEventInclude);
+
         $parameters = array_replace_recursive($context, $code->getParameters());
-        $template = $env->resolveTemplate($code->getTemplate());
+        $template   = $env->resolveTemplate($code->getTemplate());
 
         return $template->render($parameters);
     }

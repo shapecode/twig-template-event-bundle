@@ -1,25 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Shapecode\Bundle\TwigTemplateEventBundle\Manager;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use RuntimeException;
 use Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler\HandlerInterface;
 
-/**
- * Class HandlerManager
- *
- * @package Shapecode\Bundle\TwigTemplateEventBundle\Manager
- * @author  Nikita Loges
- */
 class HandlerManager implements HandlerManagerInterface
 {
-
     /** @var ArrayCollection|HandlerInterface[] */
     protected $handlers;
 
-    /**
-     *
-     */
     public function __construct()
     {
         $this->handlers = new ArrayCollection();
@@ -28,7 +21,7 @@ class HandlerManager implements HandlerManagerInterface
     /**
      * @return ArrayCollection|HandlerInterface[]
      */
-    public function getHandlers()
+    public function getHandlers(): ArrayCollection
     {
         return $this->handlers;
     }
@@ -36,7 +29,7 @@ class HandlerManager implements HandlerManagerInterface
     /**
      * @inheritdoc
      */
-    public function addHandler($id, HandlerInterface $handler)
+    public function addHandler(string $id, HandlerInterface $handler): void
     {
         $this->getHandlers()->set($id, $handler);
     }
@@ -44,21 +37,16 @@ class HandlerManager implements HandlerManagerInterface
     /**
      * @inheritdoc
      */
-    public function getHandler($name)
+    public function getHandler(string $name): HandlerInterface
     {
-        if (!$this->hasHandler($name)) {
-            throw new \RuntimeException('handler ' . $name . ' nout found');
+        if (! $this->hasHandler($name)) {
+            throw new RuntimeException('handler ' . $name . ' nout found');
         }
 
         return $this->getHandlers()->get($name);
     }
 
-    /**
-     * @param $name
-     *
-     * @return bool
-     */
-    protected function hasHandler($name)
+    protected function hasHandler(string $name): bool
     {
         return $this->getHandlers()->containsKey($name);
     }

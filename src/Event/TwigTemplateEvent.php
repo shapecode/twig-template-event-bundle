@@ -1,33 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Shapecode\Bundle\TwigTemplateEventBundle\Event;
 
+use RuntimeException;
 use Shapecode\Bundle\TwigTemplateEventBundle\Event\Code\TwigEventCodeInterface;
-use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Contracts\EventDispatcher\Event;
 use Twig\Environment;
 
-/**
- * Class TwigTemplateEvent
- *
- * @package Shapecode\Bundle\TwigTemplateEventBundle\Event
- * @author  Nikita Loges
- */
 class TwigTemplateEvent extends Event
 {
-
-    const DEPRECATED = 'twig.template.event';
-    const PREFIX = 'shapecode.twig_template';
-    const TEMPLATE_EVENT = 'shapecode.twig_template.event';
+    public const DEPRECATED     = 'twig.template.event';
+    public const PREFIX         = 'shapecode.twig_template';
+    public const TEMPLATE_EVENT = 'shapecode.twig_template.event';
 
     /** @var Environment */
     protected $environment;
 
-    /** @var array */
+    /** @var array<string, mixed> */
     protected $parameters;
 
-    /** @var array */
+    /** @var array<string, mixed> */
     protected $context;
 
     /** @var string */
@@ -40,66 +36,62 @@ class TwigTemplateEvent extends Event
     protected $codes;
 
     /**
-     * @param                   $eventName
-     * @param Environment $environment
-     * @param array             $context
-     * @param array             $parameters
-     * @param RequestStack      $request
+     * @param array<string, mixed> $context
+     * @param array<string, mixed> $parameters
      */
-    public function __construct($eventName, Environment $environment, array $context = [], array $parameters = [], RequestStack $request)
-    {
-        $this->eventName = $eventName;
+    public function __construct(
+        string $eventName,
+        Environment $environment,
+        array $context,
+        array $parameters,
+        RequestStack $request
+    ) {
+        $this->eventName   = $eventName;
         $this->environment = $environment;
-        $this->context = $context;
-        $this->parameters = $parameters;
-        $this->request = $request;
-        $this->codes = [];
+        $this->context     = $context;
+        $this->parameters  = $parameters;
+        $this->request     = $request;
+        $this->codes       = [];
     }
 
-    /**
-     * @return Environment
-     */
-    public function getEnvironment()
+    public function getEnvironment(): Environment
     {
         return $this->environment;
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
-    public function getParameters()
+    public function getParameters(): array
     {
         return $this->parameters;
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
-    public function getContext()
+    public function getContext(): array
     {
         return $this->context;
     }
 
-    /**
-     * @return Request
-     */
-    public function getRequest()
+    public function getRequest(): Request
     {
-        return $this->request->getCurrentRequest();
+        $request = $this->request->getCurrentRequest();
+
+        if ($request === null) {
+            throw new RuntimeException('request can not be null', 1594818314245);
+        }
+
+        return $request;
     }
 
-    /**
-     * @return string
-     */
-    public function getEventName()
+    public function getEventName(): string
     {
         return $this->eventName;
     }
 
-    /**
-     * @param TwigEventCodeInterface $code
-     */
-    public function addCode(TwigEventCodeInterface $code)
+    public function addCode(TwigEventCodeInterface $code): void
     {
         $this->codes[] = $code;
     }
@@ -107,7 +99,7 @@ class TwigTemplateEvent extends Event
     /**
      * @return TwigEventCodeInterface[]
      */
-    public function getCodes()
+    public function getCodes(): array
     {
         return $this->codes;
     }

@@ -28,30 +28,66 @@
         }
     ],
     "require": {
-        "php": "~5.6|~7.0",
-
-        "symfony/framework-bundle": "~2.8|~3.0|~4.0",
-        "symfony/config": "~2.8|~3.0|~4.0",
-        "symfony/http-kernel": "~2.8|~3.0|~4.0",
-        "symfony/dependency-injection": "~2.8|~3.0|~4.0",
-        "symfony/event-dispatcher": "~2.8|~3.0|~4.0",
-        "symfony/http-foundation": "~2.8|~3.0|~4.0",
-
+        "php": "~7.3",
+        "symfony/framework-bundle": "~4.4|~5.0",
+        "symfony/config": "~4.4|~5.0",
+        "symfony/http-kernel": "~4.4|~5.0",
+        "symfony/dependency-injection": "~4.4|~5.0",
+        "symfony/event-dispatcher": "~4.4|~5.0",
+        "symfony/event-dispatcher-contracts": "~1.0|~2.0",
+        "symfony/http-foundation": "~4.4|~5.0",
         "doctrine/common": "~2.6",
-
-        "twig/twig": "~1.42|~2.11|~3.0",
-
+        "doctrine/collections": "~1.6",
+        "twig/twig": "~2.11|~3.0",
         "shapecode/twig-string-loader-bundle": "~1.2|~2.0"
+    },
+    "require-dev": {
+        "doctrine/coding-standard": "~8.0",
+        "roave/security-advisories": "dev-master",
+        "squizlabs/php_codesniffer": "~3.4",
+        "phpstan/phpstan": "~0.12",
+        "phpstan/phpstan-deprecation-rules": "~0.12",
+        "phpstan/phpstan-phpunit": "~0.12",
+        "phpstan/phpstan-strict-rules": "~0.12",
+        "maglnet/composer-require-checker": "~2.0",
+        "phpunit/phpunit": "~9.0",
+        "symfony/var-dumper": "~5.0",
+        "dg/bypass-finals": "~1.1",
+        "icanhazstring/composer-unused": "^0.7.3"
     },
     "autoload": {
         "psr-4": {
             "Shapecode\\Bundle\\TwigTemplateEventBundle\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Shapecode\\Bundle\\TwigTemplateEventBundle\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "check": [
+            "@crc",
+            "composer unused",
+            "@cs-check",
+            "@phpstan"
+        ],
+        "unuse": "composer unused --excludeDir=vendor",
+        "phpstan": "./vendor/bin/phpstan analyse ./src",
+        "phpstan-update-baseline": "phpstan analyse --ansi --generate-baseline phpstan-baseline.neon",
+        "crc": "./vendor/bin/composer-require-checker --config-file=./composer-require-checker.json",
+        "phpunit": "./vendor/bin/phpunit",
+        "cs-fix": "./vendor/bin/phpcbf",
+        "cs-check": "./vendor/bin/phpcs -s"
+    },
     "extra": {
         "branch-alias": {
-            "dev-master": "3.0-dev"
-        }
+            "dev-master": "4.0-dev"
+        },
+        "unused": [
+            "symfony/framework-bundle",
+            "shapecode/twig-string-loader-bundle"
+        ]
     },
     "minimum-stability": "dev",
     "prefer-stable": true

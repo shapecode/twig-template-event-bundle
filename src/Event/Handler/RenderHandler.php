@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler;
 
 use Shapecode\Bundle\TwigTemplateEventBundle\Event\Code\TwigEventCodeInterface;
@@ -8,21 +10,13 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
 use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
 use Twig\Environment;
 
-/**
- * Class RenderHandler
- *
- * @package Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler
- * @author  Nikita Loges
- */
+use function assert;
+
 class RenderHandler implements HandlerInterface
 {
-
     /** @var FragmentHandler */
     protected $fragment;
 
-    /**
-     * @param FragmentHandler $fragment
-     */
     public function __construct(FragmentHandler $fragment)
     {
         $this->fragment = $fragment;
@@ -30,14 +24,13 @@ class RenderHandler implements HandlerInterface
 
     /**
      * @inheritDoc
-     *
-     * @param TwigEventRender $code
      */
-    public function handle(TwigEventCodeInterface $code, Environment $env, array $context = [])
+    public function handle(TwigEventCodeInterface $code, Environment $env, array $context = []): string
     {
+        assert($code instanceof TwigEventRender);
+
         $reference = new ControllerReference($code->getController(), $code->getAttributes(), $code->getQuery());
 
-        return $this->fragment->render($reference, $code->getStrategy());
+        return (string) $this->fragment->render($reference, $code->getStrategy());
     }
-
 }

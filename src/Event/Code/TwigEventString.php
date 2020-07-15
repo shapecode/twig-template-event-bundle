@@ -1,71 +1,55 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Shapecode\Bundle\TwigTemplateEventBundle\Event\Code;
 
-/**
- * Class TwigEventString
- *
- * @package Shapecode\Bundle\TwigTemplateEventBundle\Event\Code
- * @author  Nikita Loges
- */
 class TwigEventString extends TwigEventCode
 {
-
     /** @var string */
     protected $templateString;
 
-    /** @var array */
+    /** @var array<string, mixed> */
     protected $parameters;
 
     /**
-     * @param int   $templateString
-     * @param array $parameters
-     * @param int   $priority
+     * @param array<string, mixed> $parameters
      */
-    public function __construct($templateString, array $parameters = [], $priority = 0)
+    public function __construct(string $templateString, array $parameters = [], int $priority = 0)
     {
         parent::__construct($priority);
 
         $this->templateString = $templateString;
-        $this->parameters = $parameters;
+        $this->parameters     = $parameters;
     }
 
-    /**
-     * @return string
-     */
-    public function getTemplateString()
+    public function getTemplateString(): string
     {
         return $this->templateString;
     }
 
-    /**
-     * @param string $templateString
-     */
-    public function setTemplateString($templateString)
+    public function setTemplateString(string $templateString): void
     {
         $this->templateString = $templateString;
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
-    public function getParameters()
+    public function getParameters(): array
     {
         return $this->parameters;
     }
 
     /**
-     * @param array $parameters
+     * @param array<string, mixed> $parameters
      */
-    public function setParameters(array $parameters = [])
+    public function setParameters(array $parameters = []): void
     {
         $this->parameters = $parameters;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getHandlerName()
+    public function getHandlerName(): string
     {
         return 'shapecode_twig_template_event.event_handler.string';
     }

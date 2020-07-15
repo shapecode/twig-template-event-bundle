@@ -1,40 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Shapecode\Bundle\TwigTemplateEventBundle\Event\Code;
 
-/**
- * Class TwigEventCode
- *
- * @package Shapecode\Bundle\TwigTemplateEventBundle\Event\Code
- * @author  Nikita Loges
- */
 abstract class TwigEventCode implements TwigEventCodeInterface
 {
-
     /** @var int */
     protected $priority;
 
-    /**
-     * @param int $priority
-     */
-    public function __construct($priority = 0)
+    public function __construct(int $priority = 0)
     {
-        $this->priority = (int)$priority;
+        $this->priority = $priority;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function getPriority()
+    public function getPriority(): int
     {
         return $this->priority;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function setPriority($priority)
+    public function setPriority(int $priority): void
     {
-        $this->priority = (int)$priority;
+        $this->priority = $priority;
     }
 }

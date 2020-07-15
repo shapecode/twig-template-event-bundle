@@ -1,113 +1,95 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Shapecode\Bundle\TwigTemplateEventBundle\Event\Code;
 
-/**
- * Class TwigEventRender
- *
- * @package Shapecode\Bundle\TwigTemplateEventBundle\Event\Code
- * @author  Nikita Loges
- */
 class TwigEventRender extends TwigEventCode
 {
-
-    /** @var int */
+    /** @var string */
     protected $controller;
 
-    /** @var array */
+    /** @var array<string, mixed> */
     protected $attributes;
 
-    /** @var array */
+    /** @var array<string, mixed> */
     protected $query;
 
     /** @var string */
     protected $strategy;
 
     /**
-     * @param string $controller
-     * @param array  $attributes
-     * @param int    $priority
-     * @param array  $query
-     * @param string $strategy
+     * @param array<string, mixed> $attributes
+     * @param array<string, mixed> $query
      */
-    public function __construct($controller, array $attributes = [], $priority = 0, array $query = [], $strategy = 'inline')
-    {
+    public function __construct(
+        string $controller,
+        array $attributes = [],
+        int $priority = 0,
+        array $query = [],
+        string $strategy = 'inline'
+    ) {
         parent::__construct($priority);
 
         $this->controller = $controller;
         $this->attributes = $attributes;
-        $this->query = $query;
-        $this->strategy = $strategy;
+        $this->query      = $query;
+        $this->strategy   = $strategy;
     }
 
-    /**
-     * @return string
-     */
-    public function getController()
+    public function getController(): string
     {
         return $this->controller;
     }
 
-    /**
-     * @param string $controller
-     */
-    public function setController($controller)
+    public function setController(string $controller): void
     {
         $this->controller = $controller;
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
-    public function getAttributes()
+    public function getAttributes(): array
     {
         return $this->attributes;
     }
 
     /**
-     * @param array $attributes
+     * @param array<string, mixed> $attributes
      */
-    public function setAttributes(array $attributes = [])
+    public function setAttributes(array $attributes = []): void
     {
         $this->attributes = $attributes;
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
-    public function getQuery()
+    public function getQuery(): array
     {
         return $this->query;
     }
 
     /**
-     * @param array $query
+     * @param array<string, mixed> $query
      */
-    public function setQuery(array $query = [])
+    public function setQuery(array $query = []): void
     {
         $this->query = $query;
     }
 
-    /**
-     * @return string
-     */
-    public function getStrategy()
+    public function getStrategy(): string
     {
         return $this->strategy;
     }
 
-    /**
-     * @param string $strategy
-     */
-    public function setStrategy($strategy)
+    public function setStrategy(string $strategy): void
     {
         $this->strategy = $strategy;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getHandlerName()
+    public function getHandlerName(): string
     {
         return 'shapecode_twig_template_event.event_handler.render';
     }

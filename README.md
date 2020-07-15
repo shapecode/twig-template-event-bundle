@@ -7,7 +7,10 @@ Shapecode - Twig Template Event Bundle
 [![Latest Stable Version](https://img.shields.io/packagist/v/shapecode/twig-template-event-bundle.svg?label=stable)](https://packagist.org/packages/shapecode/twig-template-event-bundle)
 [![Latest Unstable Version](https://img.shields.io/packagist/vpre/shapecode/twig-template-event-bundle.svg?label=unstable)](https://packagist.org/packages/shapecode/twig-template-event-bundle)
 [![Total Downloads](https://img.shields.io/packagist/dt/shapecode/twig-template-event-bundle.svg)](https://packagist.org/packages/shapecode/twig-template-event-bundle)
+[![Monthly Downloads](https://img.shields.io/packagist/dm/shapecode/twig-template-event-bundle.svg)](https://packagist.org/packages/shapecode/twig-template-event-bundle)
+[![Daily Downloads](https://img.shields.io/packagist/dd/shapecode/twig-template-event-bundle.svg)](https://packagist.org/packages/shapecode/twig-template-event-bundle)
 [![License](https://img.shields.io/packagist/l/shapecode/twig-template-event-bundle.svg)](https://packagist.org/packages/shapecode/twig-template-event-bundle)
+
 
 Give you the possibility to add code in a twig template dynamically.
 
