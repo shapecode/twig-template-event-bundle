@@ -43,9 +43,9 @@ class EventService implements EventServiceInterface
     {
         $event = new TwigTemplateEvent($name, $environment, $context, $parameters, $this->requestStack);
 
-        $this->dispatcher->dispatch(TwigTemplateEvent::DEPRECATED, $event);
-        $this->dispatcher->dispatch(TwigTemplateEvent::TEMPLATE_EVENT, $event);
-        $this->dispatcher->dispatch(TwigTemplateEvent::PREFIX . '.' . $name, $event);
+        $this->dispatcher->dispatch($event, TwigTemplateEvent::DEPRECATED);
+        $this->dispatcher->dispatch($event, TwigTemplateEvent::TEMPLATE_EVENT);
+        $this->dispatcher->dispatch($event, TwigTemplateEvent::PREFIX . '.' . $name);
 
         return $this->render($event);
     }
