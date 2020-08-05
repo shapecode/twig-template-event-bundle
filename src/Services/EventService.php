@@ -39,8 +39,12 @@ class EventService implements EventServiceInterface
     /**
      * @inheritdoc
      */
-    public function handleEvent(string $name, Environment $environment, array $parameters = [], array $context = []): string
-    {
+    public function handleEvent(
+        string $name,
+        Environment $environment,
+        array $parameters = [],
+        array $context = []
+    ): string {
         $event = new TwigTemplateEvent($name, $environment, $context, $parameters, $this->requestStack);
 
         $this->dispatcher->dispatch($event);
