@@ -3,24 +3,28 @@ name: PHP Composer
 on:
   push:
     branches:
-    - master
+      - master
   pull_request:
     branches:
-    - master
+      - master
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        php-versions: ['7.2', '7.3', '7.4']
+
     steps:
-    - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
-    - name: Validate composer.json and composer.lock
-      run: composer validate
+      - name: Validate composer.json and composer.lock
+        run: composer validate
 
-    - name: Install dependencies
-      run: composer install --prefer-dist --no-progress --no-suggest
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
 
-    - name: Run Check
-      run: composer check
+      - name: Run Check
+        run: composer check
