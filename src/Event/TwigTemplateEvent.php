@@ -13,27 +13,23 @@ use Twig\Environment;
 
 class TwigTemplateEvent extends Event
 {
-    public const DEPRECATED     = 'twig.template.event';
-    public const PREFIX         = 'shapecode.twig_template';
-    public const TEMPLATE_EVENT = 'shapecode.twig_template.event';
-
     /** @var Environment */
-    protected $environment;
+    private $environment;
 
     /** @var array<string, mixed> */
-    protected $parameters;
+    private $parameters;
 
     /** @var array<string, mixed> */
-    protected $context;
+    private $context;
 
     /** @var string */
-    protected $eventName;
+    private $eventName;
 
     /** @var RequestStack */
-    protected $request;
+    private $request;
 
     /** @var TwigEventCodeInterface[] */
-    protected $codes;
+    private $codes;
 
     /**
      * @param array<string, mixed> $context

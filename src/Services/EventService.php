@@ -11,7 +11,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
 
-use function count;
+use function array_map;
 use function implode;
 use function usort;
 
@@ -43,29 +43,38 @@ class EventService implements EventServiceInterface
     {
         $event = new TwigTemplateEvent($name, $environment, $context, $parameters, $this->requestStack);
 
-        $this->dispatcher->dispatch($event, TwigTemplateEvent::DEPRECATED);
-        $this->dispatcher->dispatch($event, TwigTemplateEvent::TEMPLATE_EVENT);
-        $this->dispatcher->dispatch($event, TwigTemplateEvent::PREFIX . '.' . $name);
+        $this->dispatcher->dispatch($event);
 
         return $this->render($event);
     }
 
     protected function render(TwigTemplateEvent $event): string
     {
-        $codes = $event->getCodes();
+        return implode('', $this->compile(
+            $event,
+            ...$this->sort(...$event->getCodes())
+        ));
+    }
 
+    /**
+     * @return TwigEventCodeInterface[]
+     */
+    protected function sort(TwigEventCodeInterface ...$codes): array
+    {
         usort($codes, static function (TwigEventCodeInterface $a, TwigEventCodeInterface $b): int {
             return $a->getPriority() <=> $b->getPriority();
         });
 
-        $compiled = [];
+        return $codes;
+    }
 
-        if (count($codes) > 0) {
-            foreach ($codes as $code) {
-                $compiled[] = $this->manager->getHandler($code->getHandlerName())->handle($code, $event->getEnvironment(), $event->getContext());
-            }
-        }
-
-        return implode('', $compiled);
+    /**
+     * @return string[]
+     */
+    protected function compile(TwigTemplateEvent $event, TwigEventCodeInterface ...$codes): array
+    {
+        return array_map(function (TwigEventCodeInterface $code) use ($event): string {
+            return $this->manager->getHandler($code->getHandlerName())->handle($code, $event->getEnvironment(), $event->getContext());
+        }, $codes);
     }
 }

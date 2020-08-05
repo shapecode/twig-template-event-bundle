@@ -8,7 +8,7 @@ use Shapecode\Bundle\TwigTemplateEventBundle\DependencyInjection\Compiler\EventH
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class ShapecodeTwigTemplateEventBundle extends Bundle
+final class ShapecodeTwigTemplateEventBundle extends Bundle
 {
     /**
      * @inheritDoc

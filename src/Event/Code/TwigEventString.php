@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Shapecode\Bundle\TwigTemplateEventBundle\Event\Code;
 
-class TwigEventString extends TwigEventCode
+use Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler\StringHandler;
+
+final class TwigEventString extends TwigEventCode
 {
     /** @var string */
-    protected $templateString;
+    private $templateString;
 
     /** @var array<string, mixed> */
-    protected $parameters;
+    private $parameters;
 
     /**
      * @param array<string, mixed> $parameters
@@ -51,6 +53,6 @@ class TwigEventString extends TwigEventCode
 
     public function getHandlerName(): string
     {
-        return 'shapecode_twig_template_event.event_handler.string';
+        return StringHandler::class;
     }
 }

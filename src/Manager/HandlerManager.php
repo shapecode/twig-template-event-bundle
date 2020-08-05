@@ -4,50 +4,29 @@ declare(strict_types=1);
 
 namespace Shapecode\Bundle\TwigTemplateEventBundle\Manager;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use RuntimeException;
 use Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler\HandlerInterface;
 
+use function array_key_exists;
+use function get_class;
+use function sprintf;
+
 class HandlerManager implements HandlerManagerInterface
 {
-    /** @var ArrayCollection|HandlerInterface[] */
-    protected $handlers;
+    /** @var HandlerInterface[] */
+    protected $handlers = [];
 
-    public function __construct()
+    public function addHandler(HandlerInterface $handler): void
     {
-        $this->handlers = new ArrayCollection();
+        $this->handlers[get_class($handler)] = $handler;
     }
 
-    /**
-     * @return ArrayCollection|HandlerInterface[]
-     */
-    public function getHandlers(): ArrayCollection
-    {
-        return $this->handlers;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function addHandler(string $id, HandlerInterface $handler): void
-    {
-        $this->getHandlers()->set($id, $handler);
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function getHandler(string $name): HandlerInterface
     {
-        if (! $this->hasHandler($name)) {
-            throw new RuntimeException('handler ' . $name . ' nout found');
+        if (! array_key_exists($name, $this->handlers)) {
+            throw new RuntimeException(sprintf('handler %s not found', $name));
         }
 
-        return $this->getHandlers()->get($name);
-    }
-
-    protected function hasHandler(string $name): bool
-    {
-        return $this->getHandlers()->containsKey($name);
+        return $this->handlers[$name];
     }
 }

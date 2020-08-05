@@ -9,10 +9,10 @@ use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class EventExtension extends AbstractExtension
+final class EventExtension extends AbstractExtension
 {
     /** @var EventServiceInterface */
-    protected $eventService;
+    private $eventService;
 
     public function __construct(EventServiceInterface $eventService)
     {

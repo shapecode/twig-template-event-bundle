@@ -4,19 +4,24 @@ declare(strict_types=1);
 
 namespace Shapecode\Bundle\TwigTemplateEventBundle\Event\Code;
 
-class TwigEventInclude extends TwigEventCode
+use Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler\IncludeHandler;
+
+final class TwigEventInclude extends TwigEventCode
 {
     /** @var string */
-    protected $template;
+    private $template;
 
     /** @var array<string, mixed> */
-    protected $parameters;
+    private $parameters;
 
     /**
      * @param array<string, mixed> $parameters
      */
-    public function __construct(string $templateString, array $parameters = [], int $priority = 0)
-    {
+    public function __construct(
+        string $templateString,
+        array $parameters = [],
+        int $priority = 0
+    ) {
         parent::__construct($priority);
 
         $this->template   = $templateString;
@@ -51,6 +56,6 @@ class TwigEventInclude extends TwigEventCode
 
     public function getHandlerName(): string
     {
-        return 'shapecode_twig_template_event.event_handler.include';
+        return IncludeHandler::class;
     }
 }

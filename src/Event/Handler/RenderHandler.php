@@ -12,10 +12,10 @@ use Twig\Environment;
 
 use function assert;
 
-class RenderHandler implements HandlerInterface
+final class RenderHandler implements HandlerInterface
 {
     /** @var FragmentHandler */
-    protected $fragment;
+    private $fragment;
 
     public function __construct(FragmentHandler $fragment)
     {

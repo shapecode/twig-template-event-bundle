@@ -1,36 +1,21 @@
 services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
 
-    # services
-    shapecode_twig_template_event.services.event:
-        class: Shapecode\Bundle\TwigTemplateEventBundle\Services\EventService
-        arguments:
-            - '@event_dispatcher'
-            - '@request_stack'
-            - '@shapecode_twig_template_event.handler_manager'
+  # services
+  Shapecode\Bundle\TwigTemplateEventBundle\Services\EventService: ~
+  Shapecode\Bundle\TwigTemplateEventBundle\Twig\EventExtension: ~
+  Shapecode\Bundle\TwigTemplateEventBundle\Manager\HandlerManager: ~
 
-    # handler
-    shapecode_twig_template_event.handler_manager:
-        class: Shapecode\Bundle\TwigTemplateEventBundle\Manager\HandlerManager
+  # handler
+  Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler\IncludeHandler:
+    tags: ['shapecode_twig_template_event.handler']
 
-    shapecode_twig_template_event.event_handler.include:
-        class: Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler\IncludeHandler
-        tags:
-            - { name: shapecode_twig_template_event.handler }
+  Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler\RenderHandler:
+    arguments: ["@fragment.handler"]
+    tags: ['shapecode_twig_template_event.handler']
 
-    shapecode_twig_template_event.event_handler.render:
-        class: Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler\RenderHandler
-        arguments: ["@fragment.handler"]
-        tags:
-            - { name: shapecode_twig_template_event.handler }
-
-    shapecode_twig_template_event.event_handler.string:
-        class: Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler\StringHandler
-        tags:
-            - { name: shapecode_twig_template_event.handler }
-
-    # twig extensions
-    shapecode_twig_template_event.twig_extension.event:
-        class: Shapecode\Bundle\TwigTemplateEventBundle\Twig\EventExtension
-        arguments: ["@shapecode_twig_template_event.services.event"]
-        tags:
-            - { name: twig.extension }
+  Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler\StringHandler:
+    tags: ['shapecode_twig_template_event.handler']

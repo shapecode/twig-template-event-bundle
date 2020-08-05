@@ -4,19 +4,21 @@ declare(strict_types=1);
 
 namespace Shapecode\Bundle\TwigTemplateEventBundle\Event\Code;
 
-class TwigEventRender extends TwigEventCode
+use Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler\RenderHandler;
+
+final class TwigEventRender extends TwigEventCode
 {
     /** @var string */
-    protected $controller;
+    private $controller;
 
     /** @var array<string, mixed> */
-    protected $attributes;
+    private $attributes;
 
     /** @var array<string, mixed> */
-    protected $query;
+    private $query;
 
     /** @var string */
-    protected $strategy;
+    private $strategy;
 
     /**
      * @param array<string, mixed> $attributes
@@ -91,6 +93,6 @@ class TwigEventRender extends TwigEventCode
 
     public function getHandlerName(): string
     {
-        return 'shapecode_twig_template_event.event_handler.render';
+        return RenderHandler::class;
     }
 }

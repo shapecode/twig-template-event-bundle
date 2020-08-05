@@ -7,7 +7,7 @@ namespace Shapecode\Bundle\TwigTemplateEventBundle\Event\Code;
 abstract class TwigEventCode implements TwigEventCodeInterface
 {
     /** @var int */
-    protected $priority;
+    private $priority;
 
     public function __construct(int $priority = 0)
     {

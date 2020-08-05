@@ -11,13 +11,16 @@ use Twig\Environment;
 use function array_replace_recursive;
 use function assert;
 
-class IncludeHandler implements HandlerInterface
+final class IncludeHandler implements HandlerInterface
 {
     /**
      * @inheritDoc
      */
-    public function handle(TwigEventCodeInterface $code, Environment $env, array $context = []): string
-    {
+    public function handle(
+        TwigEventCodeInterface $code,
+        Environment $env,
+        array $context = []
+    ): string {
         assert($code instanceof TwigEventInclude);
 
         $parameters = array_replace_recursive($context, $code->getParameters());
