@@ -36,8 +36,7 @@
         "symfony/event-dispatcher": "~4.4|~5.0",
         "symfony/event-dispatcher-contracts": "~1.0|~2.0",
         "symfony/http-foundation": "~4.4|~5.0",
-        "twig/twig": "~2.11|~3.0",
-        "shapecode/twig-string-loader-bundle": "~1.2|~2.0"
+        "twig/twig": "~2.11|~3.0"
     },
     "require-dev": {
         "doctrine/coding-standard": "~8.0",
@@ -51,6 +50,7 @@
         "phpunit/phpunit": "~9.0",
         "symfony/var-dumper": "~5.0",
         "dg/bypass-finals": "~1.1",
+        "shapecode/twig-string-loader-bundle": "~1.2|~2.0",
         "icanhazstring/composer-unused": "^0.7.3"
     },
     "autoload": {
@@ -83,8 +83,7 @@
             "dev-master": "4.0-dev"
         },
         "unused": [
-            "symfony/framework-bundle",
-            "shapecode/twig-string-loader-bundle"
+            "symfony/framework-bundle"
         ]
     },
     "minimum-stability": "dev",

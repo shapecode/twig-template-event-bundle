@@ -14,6 +14,7 @@
         "iterable",
         "callable",
         "void",
-        "object"
+        "object",
+        "Shapecode\\Twig\\Loader\\StringLoader"
     ]
 }

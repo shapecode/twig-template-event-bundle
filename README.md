@@ -30,7 +30,6 @@ First you need to add `shapecode/twig-template-event-bundle` to `composer.json`:
 Please note that `dev-master` points to the latest release. If you want to use the latest development version please use `dev-develop`. Of course you can also use an explicit version number, e.g., `1.0.*`.
 
 You have to add `ShapecodeTwigTemplateEventBundle` to your `AppKernel.php`:
-And if you didn't do it already you also have to add `ShapecodeTwigStringLoaderBundle` to your `AppKernel.php`:
 
 ``` php
 <?php
@@ -43,7 +42,6 @@ class AppKernel extends Kernel
     {
         $bundles = array(
             ...
-            new Shapecode\Bundle\TwigStringLoaderBundle\ShapecodeTwigStringLoaderBundle(),
             new Shapecode\Bundle\TwigTemplateEventBundle\ShapecodeTwigTemplateEventBundle(),
         );
         //...
@@ -64,36 +62,25 @@ And listen to them with an event listener:
 
 ``` 
 // services.yml
-parameters:
-    shapecode.twig_template_event.event.test.class: Shapecode\Bundle\TwigTemplateEventBundle\EventListener\TestTwigEventListener
-
 services:
     # twig events
-    shapecode.twig_template_event.event.test:
-        class: %shapecode.twig_template_event.event.test.class%
+    Shapecode\Bundle\TwigTemplateEventBundle\EventListener\TestTwigEventListener:
         tags:
             - { name: kernel.event_listener, event: shapecode.twig_template.event, method: onTemplateEvent }
 ```
 
 ``` php
 <?php
+
 namespace Shapecode\Bundle\TwigTemplateEventBundle\EventListener;
 
 use Shapecode\Bundle\TwigTemplateEventBundle\Event\Code\TwigEventString;
 use Shapecode\Bundle\TwigTemplateEventBundle\Event\TwigTemplateEvent;
 
-/**
- * Class TestTwigEventListener
- * @package Shapecode\Bundle\TwigTemplateEventBundle\EventListener
- * @author Nikita Loges
- */
 class TestTwigEventListener
 {
 
-    /**
-     * @param TwigTemplateEvent $event
-     */
-    public function onTemplateEvent(TwigTemplateEvent $event)
+    public function onTemplateEvent(TwigTemplateEvent $event): void
     {
         if ($event->getEventName() == 'test') {
             $event->addCode(new TwigEventString('hello {{ world }}', array(

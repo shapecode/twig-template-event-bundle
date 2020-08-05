@@ -4,7 +4,12 @@ declare(strict_types=1);
 
 namespace Shapecode\Bundle\TwigTemplateEventBundle\Event\Code;
 
+use LogicException;
 use Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler\StringHandler;
+use Shapecode\Twig\Loader\StringLoader;
+
+use function class_exists;
+use function sprintf;
 
 final class TwigEventString extends TwigEventCode
 {
@@ -19,6 +24,15 @@ final class TwigEventString extends TwigEventCode
      */
     public function __construct(string $templateString, array $parameters = [], int $priority = 0)
     {
+        if (! class_exists(StringLoader::class)) {
+            throw new LogicException(sprintf(
+                'You have to install %s or %s package to use %s',
+                'shapecode/twig-string-loader-bundle',
+                'shapecode/twig-string-loader',
+                self::class
+            ));
+        }
+
         parent::__construct($priority);
 
         $this->templateString = $templateString;
