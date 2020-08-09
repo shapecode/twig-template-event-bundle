@@ -18,13 +18,19 @@ class HandlerManager implements HandlerManagerInterface
 
     public function addHandler(HandlerInterface $handler): void
     {
-        $this->handlers[get_class($handler)] = $handler;
+        $name = get_class($handler);
+
+        if (array_key_exists($name, $this->handlers)) {
+            throw new RuntimeException(sprintf('handler %s already exists', $name), 1596984981559);
+        }
+
+        $this->handlers[$name] = $handler;
     }
 
     public function getHandler(string $name): HandlerInterface
     {
         if (! array_key_exists($name, $this->handlers)) {
-            throw new RuntimeException(sprintf('handler %s not found', $name));
+            throw new RuntimeException(sprintf('handler %s not found', $name), 1596984726680);
         }
 
         return $this->handlers[$name];

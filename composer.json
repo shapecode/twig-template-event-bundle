@@ -67,7 +67,8 @@
             "@crc",
             "composer unused",
             "@cs-check",
-            "@phpstan"
+            "@phpstan",
+            "@phpunit"
         ],
         "unuse": "composer unused --excludeDir=vendor",
         "phpstan": "./vendor/bin/phpstan analyse ./src",
