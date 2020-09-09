@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Shapecode\Bundle\TwigTemplateEventBundle\DependencyInjection\Compiler;
 
-use Shapecode\Bundle\TwigTemplateEventBundle\Manager\HandlerManager;
+use Shapecode\Bundle\TwigTemplateEventBundle\Manager\HandlerManagerInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
