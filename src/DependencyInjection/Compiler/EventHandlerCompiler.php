@@ -16,7 +16,7 @@ final class EventHandlerCompiler implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container): void
     {
-        $manager = $container->getDefinition(HandlerManager::class);
+        $manager = $container->findDefinition(HandlerManagerInterface::class);
         $tags    = $container->findTaggedServiceIds('shapecode_twig_template_event.handler');
 
         foreach ($tags as $id => $config) {
