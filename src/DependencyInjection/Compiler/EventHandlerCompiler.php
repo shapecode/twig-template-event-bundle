@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Shapecode\Bundle\TwigTemplateEventBundle\DependencyInjection\Compiler;
 
+use Shapecode\Bundle\TwigTemplateEventBundle\Manager\HandlerManager;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
-use Shapecode\Bundle\TwigTemplateEventBundle\Manager\HandlerManager;
 
 final class EventHandlerCompiler implements CompilerPassInterface
 {
