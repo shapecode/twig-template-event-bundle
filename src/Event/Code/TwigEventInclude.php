@@ -8,24 +8,17 @@ use Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler\IncludeHandler;
 
 final class TwigEventInclude extends TwigEventCode
 {
-    /** @var string */
-    private $template;
+    private string $template;
 
-    /** @var array<string, mixed> */
-    private $parameters;
-
-    /**
-     * @param array<string, mixed> $parameters
-     */
+    /** @param array<string, mixed> $parameters */
     public function __construct(
         string $templateString,
-        array $parameters = [],
-        int $priority = 0
+        private array $parameters = [],
+        int $priority = 0,
     ) {
         parent::__construct($priority);
 
-        $this->template   = $templateString;
-        $this->parameters = $parameters;
+        $this->template = $templateString;
     }
 
     public function getTemplate(): string
@@ -38,17 +31,13 @@ final class TwigEventInclude extends TwigEventCode
         $this->template = $template;
     }
 
-    /**
-     * @return array<string, mixed>
-     */
+    /** @return array<string, mixed> */
     public function getParameters(): array
     {
         return $this->parameters;
     }
 
-    /**
-     * @param array<string, mixed> $parameters
-     */
+    /** @param array<string, mixed> $parameters */
     public function setParameters(array $parameters = []): void
     {
         $this->parameters = $parameters;

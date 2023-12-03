@@ -8,20 +8,9 @@ services:
   Shapecode\Bundle\TwigTemplateEventBundle\Services\EventService: ~
   Shapecode\Bundle\TwigTemplateEventBundle\Twig\EventExtension: ~
   Shapecode\Bundle\TwigTemplateEventBundle\Manager\HandlerManager: ~
-  
-  # aliases
-  Shapecode\Bundle\TwigTemplateEventBundle\Manager\HandlerManagerInterface:
-    alias: Shapecode\Bundle\TwigTemplateEventBundle\Manager\HandlerManager
-  Shapecode\Bundle\TwigTemplateEventBundle\Services\EventServiceInterface:
-    alias: Shapecode\Bundle\TwigTemplateEventBundle\Services\EventService
 
   # handler
-  Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler\IncludeHandler:
-    tags: ['shapecode_twig_template_event.handler']
-
+  Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler\IncludeHandler: ~
+  Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler\StringHandler: ~
   Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler\RenderHandler:
-    arguments: ["@fragment.handler"]
-    tags: ['shapecode_twig_template_event.handler']
-
-  Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler\StringHandler:
-    tags: ['shapecode_twig_template_event.handler']
+    arguments: [ "@fragment.handler" ]

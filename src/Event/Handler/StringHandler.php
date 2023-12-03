@@ -9,20 +9,16 @@ use Shapecode\Bundle\TwigTemplateEventBundle\Event\Code\TwigEventString;
 use Twig\Environment;
 
 use function array_replace_recursive;
-use function assert;
 
+/** @template-implements HandlerInterface<TwigEventString> */
 final class StringHandler implements HandlerInterface
 {
-    /**
-     * @inheritdoc
-     */
+    /** @inheritdoc */
     public function handle(
         TwigEventCodeInterface $code,
         Environment $env,
-        array $context = []
+        array $context = [],
     ): string {
-        assert($code instanceof TwigEventString);
-
         $parameters = array_replace_recursive($context, $code->getParameters());
 
         return $env->render($code->getTemplateString(), $parameters);

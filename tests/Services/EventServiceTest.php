@@ -14,8 +14,6 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
 
-use function get_class;
-
 final class EventServiceTest extends TestCase
 {
     public function testHandleEvent(): void
@@ -26,7 +24,7 @@ final class EventServiceTest extends TestCase
 
         $handler = $this->createMock(HandlerInterface::class);
         $handler->method('handle')->willReturnOnConsecutiveCalls('foo', 'bar');
-        $className = get_class($handler);
+        $className = $handler::class;
 
         $handlerManager = new HandlerManager();
         $handlerManager->addHandler($handler);
@@ -34,7 +32,7 @@ final class EventServiceTest extends TestCase
         $sut = new EventService(
             $eventDispatcher,
             $requestStack,
-            $handlerManager
+            $handlerManager,
         );
 
         $code1 = $this->createMock(TwigEventCodeInterface::class);
@@ -72,7 +70,7 @@ final class EventServiceTest extends TestCase
             ],
             [
                 'context' => 'bar',
-            ]
+            ],
         );
 
         self::assertSame('foobar', $compiled);

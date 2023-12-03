@@ -13,30 +13,19 @@ use function sprintf;
 
 final class TwigEventString extends TwigEventCode
 {
-    /** @var string */
-    private $templateString;
-
-    /** @var array<string, mixed> */
-    private $parameters;
-
-    /**
-     * @param array<string, mixed> $parameters
-     */
-    public function __construct(string $templateString, array $parameters = [], int $priority = 0)
+    /** @param array<string, mixed> $parameters */
+    public function __construct(private string $templateString, private array $parameters = [], int $priority = 0)
     {
         if (! class_exists(StringLoader::class)) {
             throw new LogicException(sprintf(
                 'You have to install %s or %s package to use %s',
                 'shapecode/twig-string-loader-bundle',
                 'shapecode/twig-string-loader',
-                self::class
+                self::class,
             ));
         }
 
         parent::__construct($priority);
-
-        $this->templateString = $templateString;
-        $this->parameters     = $parameters;
     }
 
     public function getTemplateString(): string
@@ -49,17 +38,13 @@ final class TwigEventString extends TwigEventCode
         $this->templateString = $templateString;
     }
 
-    /**
-     * @return array<string, mixed>
-     */
+    /** @return array<string, mixed> */
     public function getParameters(): array
     {
         return $this->parameters;
     }
 
-    /**
-     * @param array<string, mixed> $parameters
-     */
+    /** @param array<string, mixed> $parameters */
     public function setParameters(array $parameters = []): void
     {
         $this->parameters = $parameters;

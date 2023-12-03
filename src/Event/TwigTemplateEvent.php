@@ -13,41 +13,21 @@ use Twig\Environment;
 
 class TwigTemplateEvent extends Event
 {
-    /** @var Environment */
-    private $environment;
-
-    /** @var array<string, mixed> */
-    private $parameters;
-
-    /** @var array<string, mixed> */
-    private $context;
-
-    /** @var string */
-    private $eventName;
-
-    /** @var RequestStack */
-    private $request;
-
-    /** @var TwigEventCodeInterface[] */
-    private $codes;
+    /** @var array<array-key, TwigEventCodeInterface> */
+    private array $codes;
 
     /**
      * @param array<string, mixed> $context
      * @param array<string, mixed> $parameters
      */
     public function __construct(
-        string $eventName,
-        Environment $environment,
-        array $context,
-        array $parameters,
-        RequestStack $request
+        private string $eventName,
+        private Environment $environment,
+        private array $context,
+        private array $parameters,
+        private RequestStack $request,
     ) {
-        $this->eventName   = $eventName;
-        $this->environment = $environment;
-        $this->context     = $context;
-        $this->parameters  = $parameters;
-        $this->request     = $request;
-        $this->codes       = [];
+        $this->codes = [];
     }
 
     public function getEnvironment(): Environment
@@ -55,17 +35,13 @@ class TwigTemplateEvent extends Event
         return $this->environment;
     }
 
-    /**
-     * @return array<string, mixed>
-     */
+    /** @return array<string, mixed> */
     public function getParameters(): array
     {
         return $this->parameters;
     }
 
-    /**
-     * @return array<string, mixed>
-     */
+    /** @return array<string, mixed> */
     public function getContext(): array
     {
         return $this->context;
@@ -92,9 +68,7 @@ class TwigTemplateEvent extends Event
         $this->codes[] = $code;
     }
 
-    /**
-     * @return TwigEventCodeInterface[]
-     */
+    /** @return TwigEventCodeInterface[] */
     public function getCodes(): array
     {
         return $this->codes;

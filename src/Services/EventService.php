@@ -6,7 +6,7 @@ namespace Shapecode\Bundle\TwigTemplateEventBundle\Services;
 
 use Shapecode\Bundle\TwigTemplateEventBundle\Event\Code\TwigEventCodeInterface;
 use Shapecode\Bundle\TwigTemplateEventBundle\Event\TwigTemplateEvent;
-use Shapecode\Bundle\TwigTemplateEventBundle\Manager\HandlerManagerInterface;
+use Shapecode\Bundle\TwigTemplateEventBundle\Manager\HandlerManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
@@ -15,35 +15,24 @@ use function array_map;
 use function implode;
 use function usort;
 
-class EventService implements EventServiceInterface
+class EventService
 {
-    /** @var EventDispatcherInterface */
-    protected $dispatcher;
-
-    /** @var RequestStack */
-    protected $requestStack;
-
-    /** @var HandlerManagerInterface */
-    protected $manager;
-
     public function __construct(
-        EventDispatcherInterface $dispatcher,
-        RequestStack $requestStack,
-        HandlerManagerInterface $manager
+        private readonly EventDispatcherInterface $dispatcher,
+        private readonly RequestStack $requestStack,
+        private readonly HandlerManager $manager,
     ) {
-        $this->dispatcher   = $dispatcher;
-        $this->requestStack = $requestStack;
-        $this->manager      = $manager;
     }
 
     /**
-     * @inheritdoc
+     * @param array<array-key, mixed> $parameters
+     * @param array<array-key, mixed> $context
      */
     public function handleEvent(
         string $name,
         Environment $environment,
         array $parameters = [],
-        array $context = []
+        array $context = [],
     ): string {
         $event = new TwigTemplateEvent($name, $environment, $context, $parameters, $this->requestStack);
 
@@ -52,18 +41,16 @@ class EventService implements EventServiceInterface
         return $this->render($event);
     }
 
-    protected function render(TwigTemplateEvent $event): string
+    private function render(TwigTemplateEvent $event): string
     {
         return implode('', $this->compile(
             $event,
-            ...$this->sort(...$event->getCodes())
+            ...$this->sort(...$event->getCodes()),
         ));
     }
 
-    /**
-     * @return TwigEventCodeInterface[]
-     */
-    protected function sort(TwigEventCodeInterface ...$codes): array
+    /** @return array<array-key, TwigEventCodeInterface> */
+    private function sort(TwigEventCodeInterface ...$codes): array
     {
         usort($codes, static function (TwigEventCodeInterface $a, TwigEventCodeInterface $b): int {
             return $a->getPriority() <=> $b->getPriority();
@@ -72,10 +59,8 @@ class EventService implements EventServiceInterface
         return $codes;
     }
 
-    /**
-     * @return string[]
-     */
-    protected function compile(TwigTemplateEvent $event, TwigEventCodeInterface ...$codes): array
+    /** @return array<string> */
+    private function compile(TwigTemplateEvent $event, TwigEventCodeInterface ...$codes): array
     {
         return array_map(function (TwigEventCodeInterface $code) use ($event): string {
             return $this->manager->getHandler($code->getHandlerName())->handle($code, $event->getEnvironment(), $event->getContext());

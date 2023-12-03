@@ -4,24 +4,19 @@ declare(strict_types=1);
 
 namespace Shapecode\Bundle\TwigTemplateEventBundle\Twig;
 
-use Shapecode\Bundle\TwigTemplateEventBundle\Services\EventServiceInterface;
+use Shapecode\Bundle\TwigTemplateEventBundle\Services\EventService;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 final class EventExtension extends AbstractExtension
 {
-    /** @var EventServiceInterface */
-    private $eventService;
-
-    public function __construct(EventServiceInterface $eventService)
-    {
-        $this->eventService = $eventService;
+    public function __construct(
+        private readonly EventService $eventService,
+    ) {
     }
 
-    /**
-     * @inheritDoc
-     */
+    /** @inheritDoc */
     public function getFunctions(): array
     {
         return [

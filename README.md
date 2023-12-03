@@ -18,69 +18,57 @@ Install instructions
 --------------------------------
 
 First you need to add `shapecode/twig-template-event-bundle` to `composer.json`:
-
-``` json
+```bash
+composer require shapecode/twig-template-event-bundle
+```
+... or ...
+```json
 {
    "require": {
-        "shapecode/twig-template-event-bundle": "~3.0"
+        "shapecode/twig-template-event-bundle": "~5.0"
     }
 }
 ```
 
-Please note that `dev-master` points to the latest release. If you want to use the latest development version please use `dev-develop`. Of course you can also use an explicit version number, e.g., `1.0.*`.
+If you dont use Symfony Flex you have to add `ShapecodeTwigTemplateEventBundle` to your `bundles.php`:
 
-You have to add `ShapecodeTwigTemplateEventBundle` to your `AppKernel.php`:
-
-``` php
+```php
 <?php
-// app/AppKernel.php
-//...
-class AppKernel extends Kernel
-{
-    //...
-    public function registerBundles()
-    {
-        $bundles = array(
-            ...
-            new Shapecode\Bundle\TwigTemplateEventBundle\ShapecodeTwigTemplateEventBundle(),
-        );
-        //...
+// config/bundles.php
 
-        return $bundles;
-    }
-    //...
-}
+return [
+    // ...
+    Shapecode\Bundle\TwigTemplateEventBundle\ShapecodeTwigTemplateEventBundle::class => ['all' => true],
+];
 ```
 
 Now you can set events in twig templates:
 
-``` twig
+```twig
 {{ event('test') }}
 ```
 
 And listen to them with an event listener:
 
-``` 
-// services.yml
+```yaml
 services:
     # twig events
-    Shapecode\Bundle\TwigTemplateEventBundle\EventListener\TestTwigEventListener:
-        tags:
-            - { name: kernel.event_listener, event: shapecode.twig_template.event, method: onTemplateEvent }
+    Shapecode\Bundle\TwigTemplateEventBundle\EventListener\TestTwigEventListener: ~
 ```
 
-``` php
+```php
 <?php
 
 namespace Shapecode\Bundle\TwigTemplateEventBundle\EventListener;
 
 use Shapecode\Bundle\TwigTemplateEventBundle\Event\Code\TwigEventString;
 use Shapecode\Bundle\TwigTemplateEventBundle\Event\TwigTemplateEvent;
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 
+#[AsEventListener]
 class TestTwigEventListener
 {
-
-    public function onTemplateEvent(TwigTemplateEvent $event): void
+    public function __invoke(TwigTemplateEvent $event): void
     {
         if ($event->getEventName() == 'test') {
             $event->addCode(new TwigEventString('hello {{ world }}', array(
