@@ -62,6 +62,7 @@ services:
 namespace Shapecode\Bundle\TwigTemplateEventBundle\EventListener;
 
 use Shapecode\Bundle\TwigTemplateEventBundle\Event\Code\TwigEventString;
+use Shapecode\Bundle\TwigTemplateEventBundle\Event\Code\TwigEventInclude;
 use Shapecode\Bundle\TwigTemplateEventBundle\Event\TwigTemplateEvent;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 
@@ -70,10 +71,31 @@ class TestTwigEventListener
 {
     public function __invoke(TwigTemplateEvent $event): void
     {
-        if ($event->getEventName() == 'test') {
-            $event->addCode(new TwigEventString('hello {{ world }}', array(
-                'world' => 'World'
-            )));
+        if ($event->getEventName() == 'foo') {
+        
+            // to add a string
+            $event->addCode(
+                new TwigEventString(
+                    'hello {{ world }}', 
+                    [
+                        'world' => 'World'
+                    ],
+                    10 // default is 0. The higher the number the later the code will be executed. The lower the number the earlier the code will be executed.
+                )
+            );
+        }
+        
+        if ($event->getEventName() == 'bar') {
+        
+            // to include a twig template
+            $event->addCode(
+                new TwigEventInclude(
+                    '@App/Layout/Header/_search.html.twig', 
+                    [
+                        'world' => 'World'
+                    ],
+                )
+            );
         }
     }
 }

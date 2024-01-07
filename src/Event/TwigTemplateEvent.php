@@ -21,11 +21,11 @@ class TwigTemplateEvent extends Event
      * @param array<string, mixed> $parameters
      */
     public function __construct(
-        private string $eventName,
-        private Environment $environment,
-        private array $context,
-        private array $parameters,
-        private RequestStack $request,
+        private readonly string $eventName,
+        private readonly Environment $environment,
+        private readonly array $context,
+        private readonly array $parameters,
+        private readonly RequestStack $requestStack,
     ) {
         $this->codes = [];
     }
@@ -47,9 +47,14 @@ class TwigTemplateEvent extends Event
         return $this->context;
     }
 
+    public function getRequestStack(): RequestStack
+    {
+        return $this->requestStack;
+    }
+
     public function getRequest(): Request
     {
-        $request = $this->request->getCurrentRequest();
+        $request = $this->requestStack->getCurrentRequest();
 
         if ($request === null) {
             throw new RuntimeException('request can not be null', 1594818314245);
