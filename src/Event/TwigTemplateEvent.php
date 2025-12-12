@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\EventDispatcher\Event;
 use Twig\Environment;
 
-class TwigTemplateEvent extends Event
+final class TwigTemplateEvent extends Event
 {
     /** @var array<array-key, TwigEventCodeInterface> */
     private array $codes;

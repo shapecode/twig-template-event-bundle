@@ -6,15 +6,17 @@ namespace Shapecode\Bundle\TwigTemplateEventBundle\Event\Handler;
 
 use Shapecode\Bundle\TwigTemplateEventBundle\Event\Code\TwigEventCodeInterface;
 use Shapecode\Bundle\TwigTemplateEventBundle\Event\Code\TwigEventRender;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
 use Twig\Environment;
 
 /** @template-implements HandlerInterface<TwigEventRender> */
-final class RenderHandler implements HandlerInterface
+final readonly class RenderHandler implements HandlerInterface
 {
     public function __construct(
-        private readonly FragmentHandler $fragment,
+        #[Autowire(service: 'fragment.handler')]
+        private FragmentHandler $fragment,
     ) {
     }
 

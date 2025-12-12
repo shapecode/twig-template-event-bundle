@@ -20,14 +20,15 @@ final class EventExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('event', [
-                $this,
+            new TwigFunction(
                 'event',
-            ], [
-                'needs_environment' => true,
-                'needs_context'     => true,
-                'is_safe'           => ['all'],
-            ]),
+                $this->event(...),
+                [
+                    'needs_environment' => true,
+                    'needs_context'     => true,
+                    'is_safe'           => ['all'],
+                ],
+            ),
         ];
     }
 
@@ -35,8 +36,17 @@ final class EventExtension extends AbstractExtension
      * @param array<string, mixed> $context
      * @param array<string, mixed> $parameters
      */
-    public function event(Environment $environment, array $context, string $name, array $parameters = []): string
-    {
-        return $this->eventService->handleEvent($name, $environment, $parameters, $context);
+    public function event(
+        Environment $environment,
+        array $context,
+        string $name,
+        array $parameters = [],
+    ): string {
+        return $this->eventService->handleEvent(
+            $name,
+            $environment,
+            $parameters,
+            $context,
+        );
     }
 }

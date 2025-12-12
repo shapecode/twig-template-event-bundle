@@ -15,18 +15,18 @@ use function array_map;
 use function implode;
 use function usort;
 
-class EventService
+final readonly class EventService
 {
     public function __construct(
-        private readonly EventDispatcherInterface $dispatcher,
-        private readonly RequestStack $requestStack,
-        private readonly HandlerManager $manager,
+        private EventDispatcherInterface $dispatcher,
+        private RequestStack $requestStack,
+        private HandlerManager $manager,
     ) {
     }
 
     /**
-     * @param array<array-key, mixed> $parameters
-     * @param array<array-key, mixed> $context
+     * @param array<string, mixed> $parameters
+     * @param array<string, mixed> $context
      */
     public function handleEvent(
         string $name,
@@ -34,7 +34,13 @@ class EventService
         array $parameters = [],
         array $context = [],
     ): string {
-        $event = new TwigTemplateEvent($name, $environment, $context, $parameters, $this->requestStack);
+        $event = new TwigTemplateEvent(
+            $name,
+            $environment,
+            $context,
+            $parameters,
+            $this->requestStack,
+        );
 
         $this->dispatcher->dispatch($event);
 
@@ -43,18 +49,22 @@ class EventService
 
     private function render(TwigTemplateEvent $event): string
     {
-        return implode('', $this->compile(
-            $event,
-            ...$this->sort(...$event->getCodes()),
-        ));
+        return implode(
+            '',
+            $this->compile(
+                $event,
+                ...$this->sort(...$event->getCodes()),
+            ),
+        );
     }
 
     /** @return array<array-key, TwigEventCodeInterface> */
     private function sort(TwigEventCodeInterface ...$codes): array
     {
-        usort($codes, static function (TwigEventCodeInterface $a, TwigEventCodeInterface $b): int {
-            return $a->getPriority() <=> $b->getPriority();
-        });
+        usort(
+            $codes,
+            static fn (TwigEventCodeInterface $a, TwigEventCodeInterface $b): int => $a->getPriority() <=> $b->getPriority(),
+        );
 
         return $codes;
     }
@@ -62,8 +72,17 @@ class EventService
     /** @return array<string> */
     private function compile(TwigTemplateEvent $event, TwigEventCodeInterface ...$codes): array
     {
-        return array_map(function (TwigEventCodeInterface $code) use ($event): string {
-            return $this->manager->getHandler($code->getHandlerName())->handle($code, $event->getEnvironment(), $event->getContext());
-        }, $codes);
+        return array_map(
+            fn (TwigEventCodeInterface $code): string => $this->manager
+                ->getHandler(
+                    $code->getHandlerName(),
+                )
+                ->handle(
+                    $code,
+                    $event->getEnvironment(),
+                    $event->getContext(),
+                ),
+            $codes,
+        );
     }
 }

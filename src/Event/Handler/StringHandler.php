@@ -11,7 +11,7 @@ use Twig\Environment;
 use function array_replace_recursive;
 
 /** @template-implements HandlerInterface<TwigEventString> */
-final class StringHandler implements HandlerInterface
+final readonly class StringHandler implements HandlerInterface
 {
     /** @inheritdoc */
     public function handle(
